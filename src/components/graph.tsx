@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 const Page = styled.section`
   text-align: center;
   margin: 0 auto;
-  width: 1100px;
+  width: 1360px;
 `;
 
 const Home = () => {
@@ -134,6 +134,18 @@ const Home = () => {
             <th>3번 cell Volt 최대</th>
             <th>3번 cell Volt 최저</th>
             <th>3번 cell Volt 편차</th>
+            <th>1번 cell Temp 평균</th>
+            <th>1번 cell Temp 최대</th>
+            <th>1번 cell Temp 최저</th>
+            <th>1번 cell Temp 편차</th>
+            <th>2번 cell Temp 평균</th>
+            <th>2번 cell Temp 최대</th>
+            <th>2번 cell Temp 최저</th>
+            <th>2번 cell Temp 편차</th>
+            <th>3번 cell Temp 평균</th>
+            <th>3번 cell Temp 최대</th>
+            <th>3번 cell Temp 최저</th>
+            <th>3번 cell Temp 편차</th>
           </tr>
         </thead>
         <tbody>
@@ -144,14 +156,26 @@ const Home = () => {
               <td>{data.TrayCellAvgVolt1}</td>
               <td>{data.TrayCellMaxVolt1}</td>
               <td>{data.TrayCellMinVolt1}</td>
-              <td>{data.TrayCellDifTemp1}</td>
+              <td>{data.TrayCellDifVolt1}</td>
               <td>{data.TrayCellAvgVolt2}</td>
               <td>{data.TrayCellMaxVolt2}</td>
               <td>{data.TrayCellMinVolt2}</td>
-              <td>{data.TrayCellDifTemp2}</td>
+              <td>{data.TrayCellDifVolt2}</td>
               <td>{data.TrayCellAvgVolt3}</td>
               <td>{data.TrayCellMaxVolt3}</td>
               <td>{data.TrayCellMinVolt3}</td>
+              <td>{data.TrayCellDifVolt3}</td>
+              <td>{data.TrayCellAvgTemp1}</td>
+              <td>{data.TrayCellMaxTemp1}</td>
+              <td>{data.TrayCellMinTemp1}</td>
+              <td>{data.TrayCellDifTemp1}</td>
+              <td>{data.TrayCellAvgTemp2}</td>
+              <td>{data.TrayCellMaxTemp2}</td>
+              <td>{data.TrayCellMinTemp2}</td>
+              <td>{data.TrayCellDifTemp2}</td>
+              <td>{data.TrayCellAvgTemp3}</td>
+              <td>{data.TrayCellMaxTemp3}</td>
+              <td>{data.TrayCellMinTemp3}</td>
               <td>{data.TrayCellDifTemp3}</td>
             </tr>
           ))}
