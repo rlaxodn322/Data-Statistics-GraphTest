@@ -8,8 +8,8 @@ import Graph from '../components/graph';
 const Page = styled.section`
   text-align: center;
   margin: 0 auto;
-  width: '300px';
-  font-weight: 200;
+
+  //font-weight: 200;
 `;
 
 const Home = () => {
