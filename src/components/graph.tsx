@@ -6,6 +6,7 @@ const Page = styled.section`
   text-align: center;
   margin: 0 auto;
   width: 1360px;
+  font-size: 12px;
 `;
 
 const Home = () => {
@@ -122,30 +123,18 @@ const Home = () => {
           <tr>
             <th>time</th>
             <th>RackNumber</th>
-            <th>1번 cell Volt 평균</th>
-            <th>1번 cell Volt 최대</th>
-            <th>1번 cell Volt 최저</th>
-            <th>1번 cell Volt 편차</th>
-            <th>2번 cell Volt 평균</th>
-            <th>2번 cell Volt 최대</th>
-            <th>2번 cell Volt 최저</th>
-            <th>2번 cell Volt 편차</th>
-            <th>3번 cell Volt 평균</th>
-            <th>3번 cell Volt 최대</th>
-            <th>3번 cell Volt 최저</th>
-            <th>3번 cell Volt 편차</th>
-            <th>1번 cell Temp 평균</th>
-            <th>1번 cell Temp 최대</th>
-            <th>1번 cell Temp 최저</th>
-            <th>1번 cell Temp 편차</th>
-            <th>2번 cell Temp 평균</th>
-            <th>2번 cell Temp 최대</th>
-            <th>2번 cell Temp 최저</th>
-            <th>2번 cell Temp 편차</th>
-            <th>3번 cell Temp 평균</th>
-            <th>3번 cell Temp 최대</th>
-            <th>3번 cell Temp 최저</th>
-            <th>3번 cell Temp 편차</th>
+            <th>1번 cell Volt/Temp 평균</th>
+            <th>1번 cell Volt/Temp 최대</th>
+            <th>1번 cell Volt/Temp 최저</th>
+            <th>1번 cell Volt/Temp 편차</th>
+            <th>2번 cell Volt/Temp 평균</th>
+            <th>2번 cell Volt/Temp 최대</th>
+            <th>2번 cell Volt/Temp 최저</th>
+            <th>2번 cell Volt/Temp 편차</th>
+            <th>3번 cell Volt/Temp 평균</th>
+            <th>3번 cell Volt/Temp 최대</th>
+            <th>3번 cell Volt/Temp 최저</th>
+            <th>3번 cell Volt/Temp 편차</th>
           </tr>
         </thead>
         <tbody>
@@ -153,30 +142,42 @@ const Home = () => {
             <tr key={index}>
               <td>{data.time}</td>
               <td>{data.RackNumber}</td>
-              <td>{data.TrayCellAvgVolt1}</td>
-              <td>{data.TrayCellMaxVolt1}</td>
-              <td>{data.TrayCellMinVolt1}</td>
-              <td style={{ color: 'red' }}>{data.TrayCellDifVolt1}</td>
-              <td>{data.TrayCellAvgVolt2}</td>
-              <td>{data.TrayCellMaxVolt2}</td>
-              <td>{data.TrayCellMinVolt2}</td>
-              <td style={{ color: 'red' }}>{data.TrayCellDifVolt2}</td>
-              <td>{data.TrayCellAvgVolt3}</td>
-              <td>{data.TrayCellMaxVolt3}</td>
-              <td>{data.TrayCellMinVolt3}</td>
-              <td style={{ color: 'red' }}>{data.TrayCellDifVolt3}</td>
-              <td>{data.TrayCellAvgTemp1}</td>
-              <td>{data.TrayCellMaxTemp1}</td>
-              <td>{data.TrayCellMinTemp1}</td>
-              <td style={{ color: 'red' }}>{data.TrayCellDifTemp1}</td>
-              <td>{data.TrayCellAvgTemp2}</td>
-              <td>{data.TrayCellMaxTemp2}</td>
-              <td>{data.TrayCellMinTemp2}</td>
-              <td style={{ color: 'red' }}>{data.TrayCellDifTemp2}</td>
-              <td>{data.TrayCellAvgTemp3}</td>
-              <td>{data.TrayCellMaxTemp3}</td>
-              <td>{data.TrayCellMinTemp3}</td>
-              <td style={{ color: 'red' }}>{data.TrayCellDifTemp3}</td>
+              <td>
+                {data.TrayCellAvgVolt1}/{data.TrayCellAvgTemp1}
+              </td>
+              <td>
+                {data.TrayCellMaxVolt1}/{data.TrayCellMaxTemp1}
+              </td>
+              <td>
+                {data.TrayCellMinVolt1}/{data.TrayCellMinTemp1}
+              </td>
+              <td style={{ color: 'red' }}>
+                {data.TrayCellDifVolt1}/{data.TrayCellDifTemp1}
+              </td>
+              <td>
+                {data.TrayCellAvgVolt2}/{data.TrayCellAvgTemp2}
+              </td>
+              <td>
+                {data.TrayCellMaxVolt2}/{data.TrayCellMaxTemp2}
+              </td>
+              <td>
+                {data.TrayCellMinVolt2}/{data.TrayCellMinTemp2}
+              </td>
+              <td style={{ color: 'red' }}>
+                {data.TrayCellDifVolt2}/{data.TrayCellDifTemp2}
+              </td>
+              <td>
+                {data.TrayCellAvgVolt3}/{data.TrayCellAvgTemp3}
+              </td>
+              <td>
+                {data.TrayCellMaxVolt3}/{data.TrayCellMaxTemp3}
+              </td>
+              <td>
+                {data.TrayCellMinVolt3}/{data.TrayCellMinTemp3}
+              </td>
+              <td style={{ color: 'red' }}>
+                {data.TrayCellDifVolt3}/{data.TrayCellDifTemp3}
+              </td>
             </tr>
           ))}
         </tbody>
