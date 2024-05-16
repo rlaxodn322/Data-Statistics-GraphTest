@@ -156,27 +156,27 @@ const Home = () => {
               <td>{data.TrayCellAvgVolt1}</td>
               <td>{data.TrayCellMaxVolt1}</td>
               <td>{data.TrayCellMinVolt1}</td>
-              <td>{data.TrayCellDifVolt1}</td>
+              <td style={{ color: 'red' }}>{data.TrayCellDifVolt1}</td>
               <td>{data.TrayCellAvgVolt2}</td>
               <td>{data.TrayCellMaxVolt2}</td>
               <td>{data.TrayCellMinVolt2}</td>
-              <td>{data.TrayCellDifVolt2}</td>
+              <td style={{ color: 'red' }}>{data.TrayCellDifVolt2}</td>
               <td>{data.TrayCellAvgVolt3}</td>
               <td>{data.TrayCellMaxVolt3}</td>
               <td>{data.TrayCellMinVolt3}</td>
-              <td>{data.TrayCellDifVolt3}</td>
+              <td style={{ color: 'red' }}>{data.TrayCellDifVolt3}</td>
               <td>{data.TrayCellAvgTemp1}</td>
               <td>{data.TrayCellMaxTemp1}</td>
               <td>{data.TrayCellMinTemp1}</td>
-              <td>{data.TrayCellDifTemp1}</td>
+              <td style={{ color: 'red' }}>{data.TrayCellDifTemp1}</td>
               <td>{data.TrayCellAvgTemp2}</td>
               <td>{data.TrayCellMaxTemp2}</td>
               <td>{data.TrayCellMinTemp2}</td>
-              <td>{data.TrayCellDifTemp2}</td>
+              <td style={{ color: 'red' }}>{data.TrayCellDifTemp2}</td>
               <td>{data.TrayCellAvgTemp3}</td>
               <td>{data.TrayCellMaxTemp3}</td>
               <td>{data.TrayCellMinTemp3}</td>
-              <td>{data.TrayCellDifTemp3}</td>
+              <td style={{ color: 'red' }}>{data.TrayCellDifTemp3}</td>
             </tr>
           ))}
         </tbody>
