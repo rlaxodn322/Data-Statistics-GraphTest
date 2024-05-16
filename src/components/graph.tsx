@@ -1,173 +1,92 @@
-import React, { useEffect, useState } from 'react';
-
-import { ResponsiveLine } from '@nivo/line';
+import React, { useState, useEffect } from 'react';
 import { graphget } from './apis/graph/graph';
-// import { graphget } from './mqttapi';
+
 const Home = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [acColor, setACColor] = useState<string>('red');
-  // eslint-disable-next-line no-unused-vars
-  const [dcColor, setDCColor] = useState<string>('red');
-  // eslint-disable-next-line no-unused-vars
-  const [acValue, setACValue] = useState<string>('');
-  // eslint-disable-next-line no-unused-vars
-  const [dcValue, setDCValue] = useState<string>('');
-  const [acData, setACData] = useState<{ x: string; y: number }[]>([]);
-  const [dcData, setDCData] = useState<{ x: string; y: number }[]>([]);
+  const [tableData, setTableData] = useState([]);
+  const [startDate, setStartDate] = useState(new Date('2024-05-14T00:00:00Z'));
+  const [endDate, setEndDate] = useState(new Date('2024-05-16T17:30:00Z'));
 
   useEffect(() => {
     fetchData();
     const intervalId = setInterval(fetchData, 1000);
     return () => clearInterval(intervalId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [startDate, endDate]);
 
-  // useEffect(() => {
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-  const koreaTime = (timestamp: number) => {
-    const koreaTime = new Date(timestamp + 1 * 60 * 60);
-    return koreaTime.toLocaleString(); // Format the date into a string
-  };
   const fetchData = () => {
-    graphget()
+    const startTime = startDate.toISOString();
+    const endTime = endDate.toISOString();
+
+    graphget(startTime, endTime)
       .then((response) => {
         const receivedData = response;
-        // console.log(receivedData);
-        const acRawValue = receivedData[0]?.data.data[0]?.AC || '0.00V';
-        setACValue(acRawValue);
-        setACColor(acRawValue === '0.00V' ? 'red' : 'blue');
-
-        const dcRawValue = receivedData[0]?.data.data[0]?.DC || '0.00V';
-        setDCValue(dcRawValue);
-        setDCColor(dcRawValue === '0.00V' ? 'red' : 'blue');
-
-        const timestamp = Date.now();
-        const koreaTimestamp = koreaTime(timestamp); // Converted to string
-
-        // New data with string type for x
-        const newACData = { x: koreaTimestamp, y: parseFloat(acRawValue) };
-        const newDCData = { x: koreaTimestamp, y: parseFloat(dcRawValue) };
-
-        // Update state with the new data
-        setACData((prevData) => {
-          if (prevData.length < 3) {
-            // If less than 3 data points, append the new data
-            return [...prevData, newACData];
-          } else {
-            // If 3 data points already, remove the oldest data point and append the new one
-            return [...prevData.slice(1), newACData];
-          }
-        });
-
-        setDCData((prevData) => {
-          if (prevData.length < 3) {
-            // If less than 3 data points, append the new data
-            return [...prevData, newDCData];
-          } else {
-            // If 3 data points already, remove the oldest data point and append the new one
-            return [...prevData.slice(1), newDCData];
-          }
-        });
+        if (receivedData && receivedData.length > 0) {
+          const formattedData = receivedData.map((item) => ({
+            TrayCellVolt1: item.data.TrayCellVolt1,
+            TrayCellVolt2: item.data.TrayCellVolt2,
+            TrayCellVolt3: item.data.TrayCellVolt3,
+            TrayCellTemp1: item.data.TrayCellTemp1,
+            TrayCellTemp2: item.data.TrayCellTemp2,
+            TrayCellTemp3: item.data.TrayCellTemp3,
+          }));
+          setTableData(formattedData);
+        } else {
+          setTableData([]);
+        }
       })
-      .catch((error) => console.error('Error fetching data:', error));
+      .catch((error) => console.error('데이터 가져오기 오류:', error));
   };
 
-  const data = [
-    {
-      id: 'AC',
-      color: 'blue',
-      data: acData.map((point) => ({ x: point.x, y: point.y })),
-    },
-    {
-      id: 'DC',
-      color: 'green',
-      data: dcData.map((point) => ({ x: point.x, y: point.y })),
-    },
-  ];
+  const handleDateChange = (event) => {
+    const { name, value } = event.target;
+    if (name === 'startDate') {
+      setStartDate(new Date(value));
+    } else if (name === 'endDate') {
+      setEndDate(new Date(value));
+    }
+  };
+
+  const renderTable = () => {
+    return (
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>TrayCellVolt1</th>
+            <th>TrayCellVolt2</th>
+            <th>TrayCellVolt3</th>
+            <th>TrayCellTemp1</th>
+            <th>TrayCellTemp2</th>
+            <th>TrayCellTemp3</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData.map((data, index) => (
+            <tr key={index}>
+              <td>{data.TrayCellVolt1}</td>
+              <td>{data.TrayCellVolt2}</td>
+              <td>{data.TrayCellVolt3}</td>
+              <td>{data.TrayCellTemp1}</td>
+              <td>{data.TrayCellTemp2}</td>
+              <td>{data.TrayCellTemp3}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  };
 
   return (
-    <div>
-      {/* <div style={{ display: 'flex', marginLeft: '10px' }}>
-        <div style={{ marginLeft: '10px' }}>
-          AC:
-          <div style={{ backgroundColor: acColor, width: '50px', height: '10px' }}>
-            <div style={{ ...getTextStyle(acColor), ...{ color: 'white' } }}>{acValue === '0.00V' ? '' : ''}</div>
-          </div>
-          {acValue}
-        </div>
-        <div style={{ marginLeft: '10px' }}>
-          DC:
-          
-          <div style={{ backgroundColor: dcColor, width: '50px', height: '10px' }}>
-            <div style={{ ...getTextStyle(dcColor), ...{ color: 'white' } }}>{dcValue === '0.00V' ? '' : ''}</div>
-          </div>
-          {dcValue}
-        </div>
-      </div> */}
-
-      <div style={{ width: '700px', height: '250px', marginTop: '20px' }}>
-        <ResponsiveLine
-          data={data}
-          margin={{ top: 10, right: 110, bottom: 40, left: 60 }}
-          xScale={{
-            type: 'point',
-          }}
-          axisLeft={{
-            tickSize: 1,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'Elebus',
-            legendOffset: -40,
-            legendPosition: 'middle',
-          }}
-          enableGridX={false}
-          pointSize={1}
-          pointColor={{ theme: 'background' }}
-          pointBorderWidth={5}
-          enablePointLabel={true}
-          pointBorderColor={{ from: 'serieColor' }}
-          pointLabelYOffset={-12}
-          enableSlices="x"
-          useMesh={true}
-          legends={[
-            {
-              anchor: 'bottom-right',
-              direction: 'column',
-              justify: false,
-              translateX: 120,
-              translateY: 0,
-              itemsSpacing: 0,
-              itemDirection: 'left-to-right',
-              itemWidth: 80,
-              itemHeight: 20,
-              itemOpacity: 0.75,
-              symbolSize: 12,
-              symbolShape: 'circle',
-              symbolBorderColor: 'rgba(0, 0, 0, .5)',
-              effects: [
-                {
-                  on: 'hover',
-                  style: {
-                    itemBackground: 'rgba(0, 0, 0, .03)',
-                    itemOpacity: 1,
-                  },
-                },
-              ],
-            },
-          ]}
-        />
+    <div className="container">
+      <div className="date-picker">
+        <label>시작 날짜:</label>
+        <input type="date" name="startDate" value={startDate.toISOString().slice(0, 10)} onChange={handleDateChange} />
       </div>
+      <div className="date-picker">
+        <label>종료 날짜:</label>
+        <input type="date" name="endDate" value={endDate.toISOString().slice(0, 10)} onChange={handleDateChange} />
+      </div>
+      <div className="table-container">{renderTable()}</div>
     </div>
   );
 };
-
-// const getTextStyle = (color: string): React.CSSProperties => ({
-//   textAlign: 'center',
-//   marginTop: '5px',
-//   fontWeight: 'bold',
-//   color: color,
-// });
 
 export default Home;

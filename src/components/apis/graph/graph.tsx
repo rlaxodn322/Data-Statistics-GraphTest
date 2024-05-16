@@ -4,8 +4,11 @@ import { backUrl } from '../../../config/config';
 axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
 
-// 내 정보 불러오기 API
-export async function graphget() {
-  // console.log('loadMyInfoAPI/company');
-  return await axios.get('/graph/getdata').then((response) => response.data);
+export async function graphget(startTime: string, endTime: string) {
+  try {
+    const response = await axios.get(`/graphtest/getdata?startTime=${startTime}&endTime=${endTime}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching data: ${error}`);
+  }
 }
