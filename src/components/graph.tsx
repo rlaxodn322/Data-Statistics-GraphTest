@@ -9,10 +9,11 @@ const Page = styled.section`
 `;
 
 const Home = () => {
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState<any[]>([]);
   const [startDate, setStartDate] = useState(new Date('0000-05-14T00:00:00Z'));
   const [endDate, setEndDate] = useState(new Date('2024-05-16T17:30:00Z'));
-
+  // eslint-disable-next-line no-unused-vars
+  const [title, setTitle] = useState('car001');
   useEffect(() => {
     fetchData();
     const intervalId = setInterval(fetchData, 100000);
@@ -32,6 +33,7 @@ const Home = () => {
         if (receivedData && receivedData.length > 0) {
           const formattedData = receivedData.map(
             (item: {
+              clientId: any;
               time: any;
               RackNumber: any;
               data: {
@@ -69,6 +71,7 @@ const Home = () => {
             }) => ({
               time: item.time,
               RackNumber: item.RackNumber,
+              Title: item.clientId,
               TrayCellAvgVolt1: item.data.TrayCellAvgVolt1,
               TrayCellMaxVolt1: item.data.TrayCellMaxVolt1,
               TrayCellMinVolt1: item.data.TrayCellMinVolt1,
@@ -114,55 +117,52 @@ const Home = () => {
 
   const renderTable = () => {
     return (
-      <Page>
-        {' '}
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>time</th>
-              <th>RackNumber</th>
-              <th>1번 cell Volt 평균</th>
-              <th>1번 cell Volt 최대</th>
-              <th>1번 cell Volt 최저</th>
-              <th>1번 cell Volt 편차</th>
-              <th>2번 cell Volt 평균</th>
-              <th>2번 cell Volt 최대</th>
-              <th>2번 cell Volt 최저</th>
-              <th>2번 cell Volt 편차</th>
-              <th>3번 cell Volt 평균</th>
-              <th>3번 cell Volt 최대</th>
-              <th>3번 cell Volt 최저</th>
-              <th>3번 cell Volt 편차</th>
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>time</th>
+            <th>RackNumber</th>
+            <th>1번 cell Volt 평균</th>
+            <th>1번 cell Volt 최대</th>
+            <th>1번 cell Volt 최저</th>
+            <th>1번 cell Volt 편차</th>
+            <th>2번 cell Volt 평균</th>
+            <th>2번 cell Volt 최대</th>
+            <th>2번 cell Volt 최저</th>
+            <th>2번 cell Volt 편차</th>
+            <th>3번 cell Volt 평균</th>
+            <th>3번 cell Volt 최대</th>
+            <th>3번 cell Volt 최저</th>
+            <th>3번 cell Volt 편차</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData.map((data, index) => (
+            <tr key={index}>
+              <td>{data.time}</td>
+              <td>{data.RackNumber}</td>
+              <td>{data.TrayCellAvgVolt1}</td>
+              <td>{data.TrayCellMaxVolt1}</td>
+              <td>{data.TrayCellMinVolt1}</td>
+              <td>{data.TrayCellDifTemp1}</td>
+              <td>{data.TrayCellAvgVolt2}</td>
+              <td>{data.TrayCellMaxVolt2}</td>
+              <td>{data.TrayCellMinVolt2}</td>
+              <td>{data.TrayCellDifTemp2}</td>
+              <td>{data.TrayCellAvgVolt3}</td>
+              <td>{data.TrayCellMaxVolt3}</td>
+              <td>{data.TrayCellMinVolt3}</td>
+              <td>{data.TrayCellDifTemp3}</td>
             </tr>
-          </thead>
-          <tbody>
-            {tableData.map((data, index) => (
-              <tr key={index}>
-                <td>{data.time}</td>
-                <td>{data.RackNumber}</td>
-                <td>{data.TrayCellAvgVolt1}</td>
-                <td>{data.TrayCellMaxVolt1}</td>
-                <td>{data.TrayCellMinVolt1}</td>
-                <td>{data.TrayCellDifTemp1}</td>
-                <td>{data.TrayCellAvgVolt2}</td>
-                <td>{data.TrayCellMaxVolt2}</td>
-                <td>{data.TrayCellMinVolt2}</td>
-                <td>{data.TrayCellDifTemp2}</td>
-                <td>{data.TrayCellAvgVolt3}</td>
-                <td>{data.TrayCellMaxVolt3}</td>
-                <td>{data.TrayCellMinVolt3}</td>
-                <td>{data.TrayCellDifTemp3}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Page>
+          ))}
+        </tbody>
+      </table>
     );
   };
 
   return (
     <Page>
-      {' '}
+      <h1>{title}</h1>
       <div className="container">
         <div className="date-picker">
           <label>시작 날짜:</label>
@@ -184,125 +184,3 @@ const Home = () => {
 };
 
 export default Home;
-// import React, { useState, useEffect } from 'react';
-// import { graphget } from './apis/graph/graph';
-// import styled from '@emotion/styled';
-
-// const Page = styled.section`
-//   text-align: center;
-//   margin: 0 auto;
-//   width: 1100px;
-// `;
-
-// const Home = () => {
-//   const [tableData, setTableData] = useState([]);
-//   const [startDate, setStartDate] = useState(new Date('0000-05-14T00:00:00Z'));
-//   const [endDate, setEndDate] = useState(new Date('2024-05-16T17:30:00Z'));
-
-//   useEffect(() => {
-//     fetchData();
-//     const intervalId = setInterval(fetchData, 1000);
-//     return () => clearInterval(intervalId);
-//   }, [startDate, endDate]);
-
-//   const fetchData = () => {
-//     const startTime = startDate.toISOString();
-//     const endTime = endDate.toISOString();
-
-//     graphget(startTime, endTime)
-//       .then((response) => {
-//         const receivedData = response;
-
-//         console.log(receivedData);
-//         if (receivedData && receivedData.length > 0) {
-//           const formattedData = receivedData.map(
-//             (item: { data: { [x: string]: string }; time: any; RackNumber: any }) => {
-//               const trayCellVoltKeys = Object.keys(item.data).filter((key) => key.startsWith('TrayCellVolt'));
-//               const trayCellTempKeys = Object.keys(item.data).filter((key) => key.startsWith('TrayCellTemp'));
-
-//               const cells: { [x: string]: { TrayCellVolt: string; TrayCellTemp: string } }[] = [];
-//               trayCellVoltKeys.forEach((voltKey, index) => {
-//                 const voltValue = item.data[voltKey].split(' ')[0];
-//                 const tempValue = item.data[trayCellTempKeys[index]].split(' ')[0];
-//                 cells.push({ [`cell${index + 1}`]: { TrayCellVolt: voltValue, TrayCellTemp: tempValue } });
-//               });
-
-//               return {
-//                 time: item.time,
-//                 RackNumber: item.RackNumber,
-//                 ...Object.assign({}, ...cells),
-//               };
-//             },
-//           );
-//           setTableData(formattedData);
-//         } else {
-//           setTableData([]);
-//         }
-//       })
-//       .catch((error) => console.error('데이터 가져오기 오류:', error));
-//   };
-
-//   const handleDateChange = (event: { target: { name: any; value: any } }) => {
-//     const { name, value } = event.target;
-//     if (name === 'startDate') {
-//       setStartDate(new Date(value));
-//     } else if (name === 'endDate') {
-//       setEndDate(new Date(value));
-//     }
-//   };
-
-//   const renderTable = () => {
-//     return (
-//       <Page>
-//         <table className="data-table">
-//           <thead>
-//             <tr>
-//               <th>time</th>
-//               <th>RackNumber</th>
-//               {tableData.length > 0 &&
-//                 Object.keys(tableData[0]).map((key) => key.startsWith('cell') && <th key={key}>{key}</th>)}
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {tableData.map((data, index) => (
-//               <tr key={index}>
-//                 <td>{data.time}</td>
-//                 <td>{data.RackNumber}</td>
-//                 {Object.keys(data)
-//                   .filter((key) => key.startsWith('cell'))
-//                   .map((key) => (
-//                     <td key={key}>
-//                       Volt: {data[key].TrayCellVolt}, Temp: {data[key].TrayCellTemp}
-//                     </td>
-//                   ))}
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </Page>
-//     );
-//   };
-
-//   return (
-//     <Page>
-//       <div className="container">
-//         <div className="date-picker">
-//           <label>시작 날짜:</label>
-//           <input
-//             type="date"
-//             name="startDate"
-//             value={startDate.toISOString().slice(0, 10)}
-//             onChange={handleDateChange}
-//           />
-//         </div>
-//         <div className="date-picker">
-//           <label>종료 날짜:</label>
-//           <input type="date" name="endDate" value={endDate.toISOString().slice(0, 10)} onChange={handleDateChange} />
-//         </div>
-//         <div className="table-container">{renderTable()}</div>
-//       </div>
-//     </Page>
-//   );
-// };
-
-// export default Home;
