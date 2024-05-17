@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { graphget } from './apis/graph/graph';
 import styled from '@emotion/styled';
+import { Input } from 'antd';
 
 const Page = styled.section`
   text-align: center;
   margin: 0 auto;
-  width: 1360px;
+  width: 1300px;
   font-size: 12px;
 `;
 
@@ -15,9 +16,12 @@ const Home = () => {
   const [endDate, setEndDate] = useState(new Date('2024-05-16T17:30:00Z'));
   // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState('car001');
+  const [rackNumberSearch, setRackNumberSearch] = useState('');
+  const [columnSearch, setColumnSearch] = useState('');
+  const [noDataMessage, setNoDataMessage] = useState('');
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 100000);
+    const intervalId = setInterval(fetchData, 3000);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]);
@@ -100,8 +104,10 @@ const Home = () => {
             }),
           );
           setTableData(formattedData);
+          setNoDataMessage(''); // 데이터가 있으면 메시지 초기화
         } else {
           setTableData([]);
+          setNoDataMessage('해당 날짜 및 검색어는 존재하지 않습니다.');
         }
       })
       .catch((error) => console.error('데이터 가져오기 오류:', error));
@@ -116,82 +122,84 @@ const Home = () => {
     }
   };
 
+  const handleRackNumberSearchChange = (event: { target: { value: string } }) => {
+    setRackNumberSearch(event.target.value);
+  };
+
+  const handleColumnSearchChange = (event: { target: { value: string } }) => {
+    setColumnSearch(event.target.value);
+  };
+
   const renderTable = () => {
+    const filteredData = tableData.filter((data) => {
+      const rackNumberMatches =
+        rackNumberSearch === '' || (data.RackNumber && data.RackNumber.includes(rackNumberSearch));
+      return rackNumberMatches;
+    });
+    if (filteredData.length === 0) {
+      return <p>{noDataMessage}</p>;
+    }
+
+    const allColumns = [
+      'time',
+      'RackNumber',
+      'TrayCellAvgVolt1',
+      'TrayCellMaxVolt1',
+      'TrayCellMinVolt1',
+      'TrayCellDifVolt1',
+      // 'TrayCellAvgVolt2',
+      // 'TrayCellMaxVolt2',
+      // 'TrayCellMinVolt2',
+      // 'TrayCellDifVolt2',
+      // 'TrayCellAvgVolt3',
+      // 'TrayCellMaxVolt3',
+      // 'TrayCellMinVolt3',
+      // 'TrayCellDifVolt3',
+      'TrayCellAvgTemp1',
+      'TrayCellMaxTemp1',
+      'TrayCellMinTemp1',
+      'TrayCellDifTemp1',
+      // 'TrayCellAvgTemp2',
+      // 'TrayCellMaxTemp2',
+      // 'TrayCellMinTemp2',
+      // 'TrayCellDifTemp2',
+      // 'TrayCellAvgTemp3',
+      // 'TrayCellMaxTemp3',
+      // 'TrayCellMinTemp3',
+      // 'TrayCellDifTemp3',
+    ];
+
+    const columnsToDisplay = columnSearch ? ['time', 'RackNumber', columnSearch] : allColumns;
+
     return (
       <table className="data-table">
         <thead>
           <tr>
-            <th>time</th>
-            <th>RackNumber</th>
-            <th>1번 cell Volt/Temp 평균</th>
-            <th>1번 cell Volt/Temp 최대</th>
-            <th>1번 cell Volt/Temp 최저</th>
-            <th>1번 cell Volt/Temp 편차</th>
-            <th>2번 cell Volt/Temp 평균</th>
-            <th>2번 cell Volt/Temp 최대</th>
-            <th>2번 cell Volt/Temp 최저</th>
-            <th>2번 cell Volt/Temp 편차</th>
-            <th>3번 cell Volt/Temp 평균</th>
-            <th>3번 cell Volt/Temp 최대</th>
-            <th>3번 cell Volt/Temp 최저</th>
-            <th>3번 cell Volt/Temp 편차</th>
+            {columnsToDisplay.map((column) => (
+              <th key={column}>{column}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {tableData.map((data, index) => (
+          {filteredData.map((data, index) => (
             <tr key={index}>
-              <td>{data.time}</td>
-              <td>{data.RackNumber}</td>
-              <td>
-                {data.TrayCellAvgVolt1}/{data.TrayCellAvgTemp1}
-              </td>
-              <td>
-                {data.TrayCellMaxVolt1}/{data.TrayCellMaxTemp1}
-              </td>
-              <td>
-                {data.TrayCellMinVolt1}/{data.TrayCellMinTemp1}
-              </td>
-              <td style={{ color: 'red' }}>
-                {data.TrayCellDifVolt1}/{data.TrayCellDifTemp1}
-              </td>
-              <td>
-                {data.TrayCellAvgVolt2}/{data.TrayCellAvgTemp2}
-              </td>
-              <td>
-                {data.TrayCellMaxVolt2}/{data.TrayCellMaxTemp2}
-              </td>
-              <td>
-                {data.TrayCellMinVolt2}/{data.TrayCellMinTemp2}
-              </td>
-              <td style={{ color: 'red' }}>
-                {data.TrayCellDifVolt2}/{data.TrayCellDifTemp2}
-              </td>
-              <td>
-                {data.TrayCellAvgVolt3}/{data.TrayCellAvgTemp3}
-              </td>
-              <td>
-                {data.TrayCellMaxVolt3}/{data.TrayCellMaxTemp3}
-              </td>
-              <td>
-                {data.TrayCellMinVolt3}/{data.TrayCellMinTemp3}
-              </td>
-              <td style={{ color: 'red' }}>
-                {data.TrayCellDifVolt3}/{data.TrayCellDifTemp3}
-              </td>
+              {columnsToDisplay.map((column) => (
+                <td key={column}>{data[column]}</td>
+              ))}
             </tr>
           ))}
         </tbody>
       </table>
     );
   };
-
   return (
     <Page>
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <div className="container">
         <div className="date-picker">
-          <label>시작 날짜:</label>
-          <input
+          <label style={{ fontSize: '15px' }}>시작 날짜: </label>
+          <Input
+            style={{ width: '20%', marginBottom: '10px' }}
             type="date"
             name="startDate"
             value={startDate.toISOString().slice(0, 10)}
@@ -199,8 +207,32 @@ const Home = () => {
           />
         </div>
         <div className="date-picker">
-          <label>종료 날짜:</label>
-          <input type="date" name="endDate" value={endDate.toISOString().slice(0, 10)} onChange={handleDateChange} />
+          <label style={{ fontSize: '15px' }}>종료 날짜: </label>
+          <Input
+            style={{ width: '20%', marginBottom: '10px' }}
+            type="date"
+            name="endDate"
+            value={endDate.toISOString().slice(0, 10)}
+            onChange={handleDateChange}
+          />
+        </div>
+        <div className="search">
+          <label style={{ fontSize: '15px' }}>Rack 검색: </label>
+          <Input
+            style={{ width: '20%', marginBottom: '10px' }}
+            type="text"
+            value={rackNumberSearch}
+            onChange={handleRackNumberSearchChange}
+          />
+        </div>
+        <div className="search">
+          <label style={{ fontSize: '15px' }}>Cell 검색: </label>
+          <Input
+            style={{ width: '20%', marginBottom: '10px' }}
+            type="text"
+            value={columnSearch}
+            onChange={handleColumnSearchChange}
+          />
         </div>
         <div className="table-container">{renderTable()}</div>
       </div>
