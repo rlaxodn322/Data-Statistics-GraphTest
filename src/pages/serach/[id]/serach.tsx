@@ -21,8 +21,8 @@ const Home = () => {
   const [noDataMessage, setNoDataMessage] = useState('');
   useEffect(() => {
     fetchData();
-    const intervalId = setInterval(fetchData, 3000);
-    return () => clearInterval(intervalId);
+    // const intervalId = setInterval(fetchData, 3000);
+    // return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]);
 
