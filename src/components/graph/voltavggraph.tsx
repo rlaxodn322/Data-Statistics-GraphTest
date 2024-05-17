@@ -55,8 +55,8 @@ const Graph1: React.FC<{ data: GraphData }> = ({ data }) => {
         }}
         curve="linear"
         enableSlices="x"
-        enableGridX={false}
-        enablePoints={false}
+        enableGridX={true}
+        enablePoints={true}
         enableCrosshair={false}
         useMesh={true}
         colors={{ scheme: 'category10' }}
@@ -65,7 +65,7 @@ const Graph1: React.FC<{ data: GraphData }> = ({ data }) => {
             anchor: 'top-right',
             direction: 'column',
             justify: false,
-            translateX: 90,
+            translateX: 80,
             translateY: 0,
             itemsSpacing: 0,
             itemDirection: 'left-to-right',
