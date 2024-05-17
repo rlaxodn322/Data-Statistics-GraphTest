@@ -1,5 +1,5 @@
 import MainHeader from '../components/Headers';
-//import MainNavbar from '../components/Navbars';
+import MainNavbar from '../components/Navbars';
 // import MainFooter from '../components/Footers';
 import { ContentsWrapper, Layout } from './style';
 
@@ -10,7 +10,7 @@ const MainLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
     <>
       <Layout>
         <MainHeader />
-        {/* <MainNavbar /> */}
+        <MainNavbar />
         <ContentsWrapper>{children}</ContentsWrapper>
         {/* <MainFooter></MainFooter> */}
       </Layout>

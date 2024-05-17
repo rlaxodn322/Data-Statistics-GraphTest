@@ -3,8 +3,10 @@ import 'react-calendar/dist/Calendar.css';
 import Head from 'next/head';
 import MainLayout from '../layouts';
 import styled from '@emotion/styled';
-import Graph from '../components/graph';
 
+import { Button } from 'antd';
+
+import Link from 'next/link';
 const Page = styled.section`
   text-align: center;
   margin: 0 auto;
@@ -19,7 +21,12 @@ const Home = () => {
         <title>B&FCS</title>
       </Head>
       <Page>
-        <Graph></Graph>
+        <Link href={'/serach/0/serach'}>
+          <Button>조회 페이지</Button>
+        </Link>
+        <Link href={'/graph/0/graph'}>
+          <Button>그래프 페이지</Button>
+        </Link>
       </Page>
     </>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { graphget } from './apis/graph/graph';
+import { graphget } from '../../../components/apis/graph/graph';
 import styled from '@emotion/styled';
 import { Input } from 'antd';
 
@@ -12,8 +12,8 @@ const Page = styled.section`
 
 const Home = () => {
   const [tableData, setTableData] = useState<any[]>([]);
-  const [startDate, setStartDate] = useState(new Date('0000-05-14T00:00:00Z'));
-  const [endDate, setEndDate] = useState(new Date('2024-05-16T17:30:00Z'));
+  const [startDate, setStartDate] = useState(new Date('0000-01-01T00:00:00Z'));
+  const [endDate, setEndDate] = useState(new Date('0000-01-02T00:00:00Z'));
   // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState('car001');
   const [rackNumberSearch, setRackNumberSearch] = useState('');
@@ -206,7 +206,11 @@ const Home = () => {
           setNoDataMessage('해당 날짜 및 검색어는 존재하지 않습니다.');
         }
       })
-      .catch((error) => console.error('데이터 가져오기 오류:', error));
+      .catch((error) => {
+        console.error('데이터 가져오기 오류:', error);
+        setTableData([]);
+        setNoDataMessage('데이터 가져오기 오류가 발생했습니다.');
+      });
   };
 
   const handleDateChange = (event: { target: { name: any; value: any } }) => {
@@ -339,6 +343,7 @@ const Home = () => {
   return (
     <Page>
       <h2>{title}</h2>
+
       <div className="container">
         <div className="date-picker">
           <label style={{ fontSize: '15px' }}>시작 날짜: </label>
