@@ -7,11 +7,16 @@ import Graph3 from '../../../components/graph/tempavggraph';
 import Graph4 from '../../../components/graph/voltavggraph';
 import Graph5 from '../../../components/graph/tempmaxgraph';
 import Graph6 from '../../../components/graph/voltmaxgraph';
+import Graph7 from '../../../components/graph/tempmingraph';
+import Graph8 from '../../../components/graph/voltmingraph';
+import Graph9 from '../../../components/graph/tempdifgraph';
+import Graph10 from '../../../components/graph/voltdifgraph';
 
 const Page = styled.section`
   text-align: center;
   margin: 0 auto;
   width: 1300px;
+  margin-bottom: 100px;
   font-size: 12px;
 `;
 
@@ -19,6 +24,7 @@ const DatePickers = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  margin-top: 30px;
 `;
 
 const DatePickerWrapper = styled.div`
@@ -76,6 +82,50 @@ interface GraphData3 {
   trayCellmaxVolt8: GraphDataItem[];
   trayCellmaxVolt9: GraphDataItem[];
 }
+interface GraphData4 {
+  trayCellminTemp1: GraphDataItem[];
+  trayCellminTemp2: GraphDataItem[];
+  trayCellminTemp3: GraphDataItem[];
+  trayCellminTemp4: GraphDataItem[];
+  trayCellminTemp5: GraphDataItem[];
+  trayCellminTemp6: GraphDataItem[];
+  trayCellminTemp7: GraphDataItem[];
+  trayCellminTemp8: GraphDataItem[];
+  trayCellminTemp9: GraphDataItem[];
+}
+interface GraphData5 {
+  trayCellminVolt1: GraphDataItem[];
+  trayCellminVolt2: GraphDataItem[];
+  trayCellminVolt3: GraphDataItem[];
+  trayCellminVolt4: GraphDataItem[];
+  trayCellminVolt5: GraphDataItem[];
+  trayCellminVolt6: GraphDataItem[];
+  trayCellminVolt7: GraphDataItem[];
+  trayCellminVolt8: GraphDataItem[];
+  trayCellminVolt9: GraphDataItem[];
+}
+interface GraphData6 {
+  trayCellDifTemp1: GraphDataItem[];
+  trayCellDifTemp2: GraphDataItem[];
+  trayCellDifTemp3: GraphDataItem[];
+  trayCellDifTemp4: GraphDataItem[];
+  trayCellDifTemp5: GraphDataItem[];
+  trayCellDifTemp6: GraphDataItem[];
+  trayCellDifTemp7: GraphDataItem[];
+  trayCellDifTemp8: GraphDataItem[];
+  trayCellDifTemp9: GraphDataItem[];
+}
+interface GraphData7 {
+  trayCellDifVolt1: GraphDataItem[];
+  trayCellDifVolt2: GraphDataItem[];
+  trayCellDifVolt3: GraphDataItem[];
+  trayCellDifVolt4: GraphDataItem[];
+  trayCellDifVolt5: GraphDataItem[];
+  trayCellDifVolt6: GraphDataItem[];
+  trayCellDifVolt7: GraphDataItem[];
+  trayCellDifVolt8: GraphDataItem[];
+  trayCellDifVolt9: GraphDataItem[];
+}
 
 const Home = () => {
   const [data, setData] = useState<GraphData>({
@@ -121,6 +171,50 @@ const Home = () => {
     trayCellmaxVolt7: [],
     trayCellmaxVolt8: [],
     trayCellmaxVolt9: [],
+  });
+  const [data4, setData4] = useState<GraphData4>({
+    trayCellminTemp1: [],
+    trayCellminTemp2: [],
+    trayCellminTemp3: [],
+    trayCellminTemp4: [],
+    trayCellminTemp5: [],
+    trayCellminTemp6: [],
+    trayCellminTemp7: [],
+    trayCellminTemp8: [],
+    trayCellminTemp9: [],
+  });
+  const [data5, setData5] = useState<GraphData5>({
+    trayCellminVolt1: [],
+    trayCellminVolt2: [],
+    trayCellminVolt3: [],
+    trayCellminVolt4: [],
+    trayCellminVolt5: [],
+    trayCellminVolt6: [],
+    trayCellminVolt7: [],
+    trayCellminVolt8: [],
+    trayCellminVolt9: [],
+  });
+  const [data6, setData6] = useState<GraphData6>({
+    trayCellDifTemp1: [],
+    trayCellDifTemp2: [],
+    trayCellDifTemp3: [],
+    trayCellDifTemp4: [],
+    trayCellDifTemp5: [],
+    trayCellDifTemp6: [],
+    trayCellDifTemp7: [],
+    trayCellDifTemp8: [],
+    trayCellDifTemp9: [],
+  });
+  const [data7, setData7] = useState<GraphData7>({
+    trayCellDifVolt1: [],
+    trayCellDifVolt2: [],
+    trayCellDifVolt3: [],
+    trayCellDifVolt4: [],
+    trayCellDifVolt5: [],
+    trayCellDifVolt6: [],
+    trayCellDifVolt7: [],
+    trayCellDifVolt8: [],
+    trayCellDifVolt9: [],
   });
 
   const currentDateTime = new Date(); // 현재 시간을 얻습니다.
@@ -191,6 +285,46 @@ const Home = () => {
           const trayCellmaxVolt8 = filterValidData(receivedData, 'TrayCellMaxVolt8');
           const trayCellmaxVolt9 = filterValidData(receivedData, 'TrayCellMaxVolt9');
 
+          const trayCellminTemp1 = filterValidData(receivedData, 'TrayCellMinTemp1');
+          const trayCellminTemp2 = filterValidData(receivedData, 'TrayCellMinTemp2');
+          const trayCellminTemp3 = filterValidData(receivedData, 'TrayCellMinTemp3');
+          const trayCellminTemp4 = filterValidData(receivedData, 'TrayCellMinTemp4');
+          const trayCellminTemp5 = filterValidData(receivedData, 'TrayCellMinTemp5');
+          const trayCellminTemp6 = filterValidData(receivedData, 'TrayCellMinTemp6');
+          const trayCellminTemp7 = filterValidData(receivedData, 'TrayCellMinTemp7');
+          const trayCellminTemp8 = filterValidData(receivedData, 'TrayCellMinTemp8');
+          const trayCellminTemp9 = filterValidData(receivedData, 'TrayCellMinTemp9');
+
+          const trayCellminVolt1 = filterValidData(receivedData, 'TrayCellMinVolt1');
+          const trayCellminVolt2 = filterValidData(receivedData, 'TrayCellMinVolt2');
+          const trayCellminVolt3 = filterValidData(receivedData, 'TrayCellMinVolt3');
+          const trayCellminVolt4 = filterValidData(receivedData, 'TrayCellMinVolt4');
+          const trayCellminVolt5 = filterValidData(receivedData, 'TrayCellMinVolt5');
+          const trayCellminVolt6 = filterValidData(receivedData, 'TrayCellMinVolt6');
+          const trayCellminVolt7 = filterValidData(receivedData, 'TrayCellMinVolt7');
+          const trayCellminVolt8 = filterValidData(receivedData, 'TrayCellMinVolt8');
+          const trayCellminVolt9 = filterValidData(receivedData, 'TrayCellMinVolt9');
+
+          const trayCellDifTemp1 = filterValidData(receivedData, 'TrayDifTemp1');
+          const trayCellDifTemp2 = filterValidData(receivedData, 'TrayCellDifTemp2');
+          const trayCellDifTemp3 = filterValidData(receivedData, 'TrayCellDifTemp3');
+          const trayCellDifTemp4 = filterValidData(receivedData, 'TrayCellDifTemp4');
+          const trayCellDifTemp5 = filterValidData(receivedData, 'TrayCellDifTemp5');
+          const trayCellDifTemp6 = filterValidData(receivedData, 'TrayCellDifTemp6');
+          const trayCellDifTemp7 = filterValidData(receivedData, 'TrayCellDifTemp7');
+          const trayCellDifTemp8 = filterValidData(receivedData, 'TrayCellDifTemp8');
+          const trayCellDifTemp9 = filterValidData(receivedData, 'TrayCellDifTemp9');
+
+          const trayCellDifVolt1 = filterValidData(receivedData, 'TrayCellDifVolt1');
+          const trayCellDifVolt2 = filterValidData(receivedData, 'TrayCellDifVolt2');
+          const trayCellDifVolt3 = filterValidData(receivedData, 'TrayCellDifVolt3');
+          const trayCellDifVolt4 = filterValidData(receivedData, 'TrayCellDifVolt4');
+          const trayCellDifVolt5 = filterValidData(receivedData, 'TrayCellDifVolt5');
+          const trayCellDifVolt6 = filterValidData(receivedData, 'TrayCellDifVolt6');
+          const trayCellDifVolt7 = filterValidData(receivedData, 'TrayCellDifVolt7');
+          const trayCellDifVolt8 = filterValidData(receivedData, 'TrayCellDifVolt8');
+          const trayCellDifVolt9 = filterValidData(receivedData, 'TrayCellDifVolt9');
+
           setData({
             trayCellVolt1,
             trayCellVolt2,
@@ -235,6 +369,50 @@ const Home = () => {
             trayCellmaxVolt8,
             trayCellmaxVolt9,
           });
+          setData4({
+            trayCellminTemp1,
+            trayCellminTemp2,
+            trayCellminTemp3,
+            trayCellminTemp4,
+            trayCellminTemp5,
+            trayCellminTemp6,
+            trayCellminTemp7,
+            trayCellminTemp8,
+            trayCellminTemp9,
+          });
+          setData5({
+            trayCellminVolt1,
+            trayCellminVolt2,
+            trayCellminVolt3,
+            trayCellminVolt4,
+            trayCellminVolt5,
+            trayCellminVolt6,
+            trayCellminVolt7,
+            trayCellminVolt8,
+            trayCellminVolt9,
+          });
+          setData6({
+            trayCellDifTemp1,
+            trayCellDifTemp2,
+            trayCellDifTemp3,
+            trayCellDifTemp4,
+            trayCellDifTemp5,
+            trayCellDifTemp6,
+            trayCellDifTemp7,
+            trayCellDifTemp8,
+            trayCellDifTemp9,
+          });
+          setData7({
+            trayCellDifVolt1,
+            trayCellDifVolt2,
+            trayCellDifVolt3,
+            trayCellDifVolt4,
+            trayCellDifVolt5,
+            trayCellDifVolt6,
+            trayCellDifVolt7,
+            trayCellDifVolt8,
+            trayCellDifVolt9,
+          });
         }
       })
       .catch((error: any) => {
@@ -262,11 +440,19 @@ const Home = () => {
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Graph3 data={data1} />
-        <Graph5 data={data2} />
+        <Graph4 data={data} />
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Graph4 data={data} />
+        <Graph5 data={data2} />
         <Graph6 data={data3} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Graph7 data={data4} />
+        <Graph8 data={data5} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Graph9 data={data6} />
+        <Graph10 data={data7} />
       </div>
     </Page>
   );

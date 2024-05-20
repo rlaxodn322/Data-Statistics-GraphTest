@@ -8,35 +8,35 @@ interface GraphDataItem {
 
 interface Graph4Props {
   data: {
-    trayCellmaxVolt1: GraphDataItem[];
-    trayCellmaxVolt2: GraphDataItem[];
-    trayCellmaxVolt3: GraphDataItem[];
-    trayCellmaxVolt4: GraphDataItem[];
-    trayCellmaxVolt5: GraphDataItem[];
-    trayCellmaxVolt6: GraphDataItem[];
-    trayCellmaxVolt7: GraphDataItem[];
-    trayCellmaxVolt8: GraphDataItem[];
-    trayCellmaxVolt9: GraphDataItem[];
+    trayCellminVolt1: GraphDataItem[];
+    trayCellminVolt2: GraphDataItem[];
+    trayCellminVolt3: GraphDataItem[];
+    trayCellminVolt4: GraphDataItem[];
+    trayCellminVolt5: GraphDataItem[];
+    trayCellminVolt6: GraphDataItem[];
+    trayCellminVolt7: GraphDataItem[];
+    trayCellminVolt8: GraphDataItem[];
+    trayCellminVolt9: GraphDataItem[];
   };
 }
 
 const Graph3: React.FC<Graph4Props> = ({ data }) => {
   return (
     <div>
-      <h2>Tray Cell Volt 최대 데이터 그래프</h2>
+      <h2>Tray Cell Volt 최소 데이터 그래프</h2>
       <Line
         width={600}
         height={300}
         data={[
-          { id: 'trayCellmaxVolt1', data: data.trayCellmaxVolt1 },
-          { id: 'trayCellmaxVolt2', data: data.trayCellmaxVolt2 },
-          { id: 'trayCellmaxVolt3', data: data.trayCellmaxVolt3 },
-          { id: 'trayCellmaxVolt4', data: data.trayCellmaxVolt4 },
-          { id: 'trayCellmaxVolt5', data: data.trayCellmaxVolt5 },
-          { id: 'trayCellmaxVolt6', data: data.trayCellmaxVolt6 },
-          { id: 'trayCellmaxVolt7', data: data.trayCellmaxVolt7 },
-          { id: 'trayCellmaxVolt8', data: data.trayCellmaxVolt8 },
-          { id: 'trayCellmaxVolt9', data: data.trayCellmaxVolt9 },
+          { id: 'trayCellminVolt1', data: data.trayCellminVolt1 },
+          { id: 'trayCellminVolt2', data: data.trayCellminVolt2 },
+          { id: 'trayCellminVolt3', data: data.trayCellminVolt3 },
+          { id: 'trayCellminVolt4', data: data.trayCellminVolt4 },
+          { id: 'trayCellminVolt5', data: data.trayCellminVolt5 },
+          { id: 'trayCellminVolt6', data: data.trayCellminVolt6 },
+          { id: 'trayCellminVolt7', data: data.trayCellminVolt7 },
+          { id: 'trayCellminVolt8', data: data.trayCellminVolt8 },
+          { id: 'trayCellminVolt9', data: data.trayCellminVolt9 },
         ]}
         xScale={{
           type: 'time',

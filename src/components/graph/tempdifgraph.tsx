@@ -6,37 +6,37 @@ interface GraphDataItem {
   y: number;
 }
 
-interface Graph4Props {
+interface Graph3Props {
   data: {
-    trayCellmaxVolt1: GraphDataItem[];
-    trayCellmaxVolt2: GraphDataItem[];
-    trayCellmaxVolt3: GraphDataItem[];
-    trayCellmaxVolt4: GraphDataItem[];
-    trayCellmaxVolt5: GraphDataItem[];
-    trayCellmaxVolt6: GraphDataItem[];
-    trayCellmaxVolt7: GraphDataItem[];
-    trayCellmaxVolt8: GraphDataItem[];
-    trayCellmaxVolt9: GraphDataItem[];
+    trayCellDifTemp1: GraphDataItem[];
+    trayCellDifTemp2: GraphDataItem[];
+    trayCellDifTemp3: GraphDataItem[];
+    trayCellDifTemp4: GraphDataItem[];
+    trayCellDifTemp5: GraphDataItem[];
+    trayCellDifTemp6: GraphDataItem[];
+    trayCellDifTemp7: GraphDataItem[];
+    trayCellDifTemp8: GraphDataItem[];
+    trayCellDifTemp9: GraphDataItem[];
   };
 }
 
-const Graph3: React.FC<Graph4Props> = ({ data }) => {
+const Graph3: React.FC<Graph3Props> = ({ data }) => {
   return (
     <div>
-      <h2>Tray Cell Volt 최대 데이터 그래프</h2>
+      <h2>Tray Cell Temp 편차 데이터 그래프</h2>
       <Line
         width={600}
         height={300}
         data={[
-          { id: 'trayCellmaxVolt1', data: data.trayCellmaxVolt1 },
-          { id: 'trayCellmaxVolt2', data: data.trayCellmaxVolt2 },
-          { id: 'trayCellmaxVolt3', data: data.trayCellmaxVolt3 },
-          { id: 'trayCellmaxVolt4', data: data.trayCellmaxVolt4 },
-          { id: 'trayCellmaxVolt5', data: data.trayCellmaxVolt5 },
-          { id: 'trayCellmaxVolt6', data: data.trayCellmaxVolt6 },
-          { id: 'trayCellmaxVolt7', data: data.trayCellmaxVolt7 },
-          { id: 'trayCellmaxVolt8', data: data.trayCellmaxVolt8 },
-          { id: 'trayCellmaxVolt9', data: data.trayCellmaxVolt9 },
+          { id: 'trayCellDifTemp1', data: data.trayCellDifTemp1 },
+          { id: 'trayCellDifTemp2', data: data.trayCellDifTemp2 },
+          { id: 'trayCellDifTemp3', data: data.trayCellDifTemp3 },
+          { id: 'trayCellDifTemp4', data: data.trayCellDifTemp4 },
+          { id: 'trayCellDifTemp5', data: data.trayCellDifTemp5 },
+          { id: 'trayCellDifTemp6', data: data.trayCellDifTemp6 },
+          { id: 'trayCellDifTemp7', data: data.trayCellDifTemp7 },
+          { id: 'trayCellDifTemp8', data: data.trayCellDifTemp8 },
+          { id: 'trayCellDifTemp9', data: data.trayCellDifTemp9 },
         ]}
         xScale={{
           type: 'time',
