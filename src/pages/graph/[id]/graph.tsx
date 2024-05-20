@@ -6,10 +6,12 @@ import { graphget } from '../../../components/apis/graph/graph';
 import Graph3 from '../../../components/graph/tempavggraph';
 import Graph4 from '../../../components/graph/voltavggraph';
 import Graph5 from '../../../components/graph/tempmaxgraph';
+import Graph6 from '../../../components/graph/voltmaxgraph';
+
 const Page = styled.section`
   text-align: center;
   margin: 0 auto;
-  width: 1200px;
+  width: 1300px;
   font-size: 12px;
 `;
 
@@ -51,6 +53,7 @@ interface GraphData1 {
   trayCellTemp8: GraphDataItem[];
   trayCellTemp9: GraphDataItem[];
 }
+
 interface GraphData2 {
   trayCellmaxTemp1: GraphDataItem[];
   trayCellmaxTemp2: GraphDataItem[];
@@ -61,6 +64,17 @@ interface GraphData2 {
   trayCellmaxTemp7: GraphDataItem[];
   trayCellmaxTemp8: GraphDataItem[];
   trayCellmaxTemp9: GraphDataItem[];
+}
+interface GraphData3 {
+  trayCellmaxVolt1: GraphDataItem[];
+  trayCellmaxVolt2: GraphDataItem[];
+  trayCellmaxVolt3: GraphDataItem[];
+  trayCellmaxVolt4: GraphDataItem[];
+  trayCellmaxVolt5: GraphDataItem[];
+  trayCellmaxVolt6: GraphDataItem[];
+  trayCellmaxVolt7: GraphDataItem[];
+  trayCellmaxVolt8: GraphDataItem[];
+  trayCellmaxVolt9: GraphDataItem[];
 }
 
 const Home = () => {
@@ -97,6 +111,17 @@ const Home = () => {
     trayCellmaxTemp8: [],
     trayCellmaxTemp9: [],
   });
+  const [data3, setData3] = useState<GraphData3>({
+    trayCellmaxVolt1: [],
+    trayCellmaxVolt2: [],
+    trayCellmaxVolt3: [],
+    trayCellmaxVolt4: [],
+    trayCellmaxVolt5: [],
+    trayCellmaxVolt6: [],
+    trayCellmaxVolt7: [],
+    trayCellmaxVolt8: [],
+    trayCellmaxVolt9: [],
+  });
 
   const currentDateTime = new Date(); // 현재 시간을 얻습니다.
   const koreaTime = new Date(currentDateTime.getTime() + 9 * 60 * 60 * 1000); // 현재 시간에 9시간을 더하여 한국 시간으로 설정합니다.
@@ -117,115 +142,55 @@ const Home = () => {
         const receivedData = response;
 
         if (receivedData && receivedData.length > 0) {
-          const trayCellVolt1 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt1: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt1,
-          }));
-          const trayCellVolt2 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt2: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt2,
-          }));
-          const trayCellVolt3 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt3: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt3,
-          }));
-          const trayCellVolt4 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt4: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt4,
-          }));
-          const trayCellVolt5 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt5: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt5,
-          }));
-          const trayCellVolt6 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt6: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt6,
-          }));
-          const trayCellVolt7 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt7: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt7,
-          }));
-          const trayCellVolt8 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt8: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt8,
-          }));
-          const trayCellVolt9 = receivedData.map((item: { time: any; data: { TrayCellAvgVolt9: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgVolt9,
-          }));
+          const filterValidData = (dataArray: any[], key: string) => {
+            return dataArray
+              .map((item) => ({
+                x: item.time,
+                y: isNaN(item.data[key]) ? 0 : item.data[key], // NaN 값을 0으로 대체
+              }))
+              .filter((item) => item.y !== null); // null 값을 필터링
+          };
 
-          const trayCellTemp1 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp1: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp1,
-          }));
-          const trayCellTemp2 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp2: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp2,
-          }));
-          const trayCellTemp3 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp3: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp3,
-          }));
-          const trayCellTemp4 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp4: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp4,
-          }));
-          const trayCellTemp5 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp5: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp5,
-          }));
-          const trayCellTemp6 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp6: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp6,
-          }));
-          const trayCellTemp7 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp7: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp7,
-          }));
-          const trayCellTemp8 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp8: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp8,
-          }));
-          const trayCellTemp9 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp9: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp9,
-          }));
-          const trayCellmaxTemp1 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp1: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp1,
-          }));
-          const trayCellmaxTemp2 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp2: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp2,
-          }));
-          const trayCellmaxTemp3 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp3: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp3,
-          }));
-          const trayCellmaxTemp4 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp4: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp4,
-          }));
-          const trayCellmaxTemp5 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp5: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp5,
-          }));
-          const trayCellmaxTemp6 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp6: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp6,
-          }));
-          const trayCellmaxTemp7 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp7: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp7,
-          }));
-          const trayCellmaxTemp8 = receivedData.map((item: { time: any; data: { TrayCellAvgTemp8: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellAvgTemp8,
-          }));
-          const trayCellmaxTemp9 = receivedData.map((item: { time: any; data: { TrayCellMaxTemp9: any } }) => ({
-            x: item.time,
-            y: item.data.TrayCellMaxTemp9,
-          }));
+          const trayCellVolt1 = filterValidData(receivedData, 'TrayCellAvgVolt1');
+          const trayCellVolt2 = filterValidData(receivedData, 'TrayCellAvgVolt2');
+          const trayCellVolt3 = filterValidData(receivedData, 'TrayCellAvgVolt3');
+          const trayCellVolt4 = filterValidData(receivedData, 'TrayCellAvgVolt4');
+          const trayCellVolt5 = filterValidData(receivedData, 'TrayCellAvgVolt5');
+          const trayCellVolt6 = filterValidData(receivedData, 'TrayCellAvgVolt6');
+          const trayCellVolt7 = filterValidData(receivedData, 'TrayCellAvgVolt7');
+          const trayCellVolt8 = filterValidData(receivedData, 'TrayCellAvgVolt8');
+          const trayCellVolt9 = filterValidData(receivedData, 'TrayCellAvgVolt9');
+
+          const trayCellTemp1 = filterValidData(receivedData, 'TrayCellAvgTemp1');
+          const trayCellTemp2 = filterValidData(receivedData, 'TrayCellAvgTemp2');
+          const trayCellTemp3 = filterValidData(receivedData, 'TrayCellAvgTemp3');
+          const trayCellTemp4 = filterValidData(receivedData, 'TrayCellAvgTemp4');
+          const trayCellTemp5 = filterValidData(receivedData, 'TrayCellAvgTemp5');
+          const trayCellTemp6 = filterValidData(receivedData, 'TrayCellAvgTemp6');
+          const trayCellTemp7 = filterValidData(receivedData, 'TrayCellAvgTemp7');
+          const trayCellTemp8 = filterValidData(receivedData, 'TrayCellAvgTemp8');
+          const trayCellTemp9 = filterValidData(receivedData, 'TrayCellAvgTemp9');
+
+          const trayCellmaxTemp1 = filterValidData(receivedData, 'TrayCellMaxTemp1');
+          const trayCellmaxTemp2 = filterValidData(receivedData, 'TrayCellMaxTemp2');
+          const trayCellmaxTemp3 = filterValidData(receivedData, 'TrayCellMaxTemp3');
+          const trayCellmaxTemp4 = filterValidData(receivedData, 'TrayCellMaxTemp4');
+          const trayCellmaxTemp5 = filterValidData(receivedData, 'TrayCellMaxTemp5');
+          const trayCellmaxTemp6 = filterValidData(receivedData, 'TrayCellMaxTemp6');
+          const trayCellmaxTemp7 = filterValidData(receivedData, 'TrayCellMaxTemp7');
+          const trayCellmaxTemp8 = filterValidData(receivedData, 'TrayCellMaxTemp8');
+          const trayCellmaxTemp9 = filterValidData(receivedData, 'TrayCellMaxTemp9');
+
+          const trayCellmaxVolt1 = filterValidData(receivedData, 'TrayCellMaxVolt1');
+          const trayCellmaxVolt2 = filterValidData(receivedData, 'TrayCellMaxVolt2');
+          const trayCellmaxVolt3 = filterValidData(receivedData, 'TrayCellMaxVolt3');
+          const trayCellmaxVolt4 = filterValidData(receivedData, 'TrayCellMaxVolt4');
+          const trayCellmaxVolt5 = filterValidData(receivedData, 'TrayCellMaxVolt5');
+          const trayCellmaxVolt6 = filterValidData(receivedData, 'TrayCellMaxVolt6');
+          const trayCellmaxVolt7 = filterValidData(receivedData, 'TrayCellMaxVolt7');
+          const trayCellmaxVolt8 = filterValidData(receivedData, 'TrayCellMaxVolt8');
+          const trayCellmaxVolt9 = filterValidData(receivedData, 'TrayCellMaxVolt9');
+
           setData({
             trayCellVolt1,
             trayCellVolt2,
@@ -259,6 +224,17 @@ const Home = () => {
             trayCellmaxTemp8,
             trayCellmaxTemp9,
           });
+          setData3({
+            trayCellmaxVolt1,
+            trayCellmaxVolt2,
+            trayCellmaxVolt3,
+            trayCellmaxVolt4,
+            trayCellmaxVolt5,
+            trayCellmaxVolt6,
+            trayCellmaxVolt7,
+            trayCellmaxVolt8,
+            trayCellmaxVolt9,
+          });
         }
       })
       .catch((error: any) => {
@@ -283,11 +259,15 @@ const Home = () => {
           <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} showTimeSelect dateFormat="Pp" />
         </DatePickerWrapper>
       </DatePickers>
-      {/* <Graph1 data={data} />
-      <Graph2 data={data} /> */}
-      <Graph3 data={data1} />
-      <Graph4 data={data} />
-      <Graph5 data={data2} />
+
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Graph3 data={data1} />
+        <Graph5 data={data2} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Graph4 data={data} />
+        <Graph6 data={data3} />
+      </div>
     </Page>
   );
 };

@@ -25,8 +25,8 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
     <div>
       <h2>Tray Cell Temp 평균 데이터 그래프</h2>
       <Line
-        width={800}
-        height={400}
+        width={600}
+        height={300}
         data={[
           { id: 'TrayCellTemp1', data: data.trayCellTemp1 },
           { id: 'TrayCellTemp2', data: data.trayCellTemp2 },

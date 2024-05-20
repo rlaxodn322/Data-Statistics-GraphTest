@@ -6,35 +6,37 @@ interface GraphDataItem {
   y: number;
 }
 
-interface GraphData {
-  trayCellVolt1: GraphDataItem[];
-  trayCellVolt2: GraphDataItem[];
-  trayCellVolt3: GraphDataItem[];
-  trayCellVolt4: GraphDataItem[];
-  trayCellVolt5: GraphDataItem[];
-  trayCellVolt6: GraphDataItem[];
-  trayCellVolt7: GraphDataItem[];
-  trayCellVolt8: GraphDataItem[];
-  trayCellVolt9: GraphDataItem[];
+interface Graph4Props {
+  data: {
+    trayCellmaxVolt1: GraphDataItem[];
+    trayCellmaxVolt2: GraphDataItem[];
+    trayCellmaxVolt3: GraphDataItem[];
+    trayCellmaxVolt4: GraphDataItem[];
+    trayCellmaxVolt5: GraphDataItem[];
+    trayCellmaxVolt6: GraphDataItem[];
+    trayCellmaxVolt7: GraphDataItem[];
+    trayCellmaxVolt8: GraphDataItem[];
+    trayCellmaxVolt9: GraphDataItem[];
+  };
 }
 
-const Graph1: React.FC<{ data: GraphData }> = ({ data }) => {
+const Graph3: React.FC<Graph4Props> = ({ data }) => {
   return (
     <div>
-      <h2>Tray Cell Volt 평균 데이터 그래프</h2>
+      <h2>Tray Cell Temp 최대 데이터 그래프</h2>
       <Line
         width={600}
         height={300}
         data={[
-          { id: 'TrayCellVolt1', data: data.trayCellVolt1 },
-          { id: 'TrayCellVolt2', data: data.trayCellVolt2 },
-          { id: 'TrayCellVolt3', data: data.trayCellVolt3 },
-          { id: 'TrayCellVolt4', data: data.trayCellVolt4 },
-          { id: 'TrayCellVolt5', data: data.trayCellVolt5 },
-          { id: 'TrayCellVolt6', data: data.trayCellVolt6 },
-          { id: 'TrayCellVolt7', data: data.trayCellVolt7 },
-          { id: 'TrayCellVolt8', data: data.trayCellVolt8 },
-          { id: 'TrayCellVolt9', data: data.trayCellVolt9 },
+          { id: 'trayCellmaxVolt1', data: data.trayCellmaxVolt1 },
+          { id: 'trayCellmaxVolt2', data: data.trayCellmaxVolt2 },
+          { id: 'trayCellmaxVolt3', data: data.trayCellmaxVolt3 },
+          { id: 'trayCellmaxVolt4', data: data.trayCellmaxVolt4 },
+          { id: 'trayCellmaxVolt5', data: data.trayCellmaxVolt5 },
+          { id: 'trayCellmaxVolt6', data: data.trayCellmaxVolt6 },
+          { id: 'trayCellmaxVolt7', data: data.trayCellmaxVolt7 },
+          { id: 'trayCellmaxVolt8', data: data.trayCellmaxVolt8 },
+          { id: 'trayCellmaxVolt9', data: data.trayCellmaxVolt9 },
         ]}
         xScale={{
           type: 'time',
@@ -82,4 +84,4 @@ const Graph1: React.FC<{ data: GraphData }> = ({ data }) => {
   );
 };
 
-export default Graph1;
+export default Graph3;
