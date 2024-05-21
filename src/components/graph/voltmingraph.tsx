@@ -28,15 +28,15 @@ const Graph3: React.FC<Graph4Props> = ({ data }) => {
         width={600}
         height={300}
         data={[
-          { id: 'trayCellminVolt1', data: data.trayCellminVolt1 },
-          { id: 'trayCellminVolt2', data: data.trayCellminVolt2 },
-          { id: 'trayCellminVolt3', data: data.trayCellminVolt3 },
-          { id: 'trayCellminVolt4', data: data.trayCellminVolt4 },
-          { id: 'trayCellminVolt5', data: data.trayCellminVolt5 },
-          { id: 'trayCellminVolt6', data: data.trayCellminVolt6 },
-          { id: 'trayCellminVolt7', data: data.trayCellminVolt7 },
-          { id: 'trayCellminVolt8', data: data.trayCellminVolt8 },
-          { id: 'trayCellminVolt9', data: data.trayCellminVolt9 },
+          { id: 'TrayCellminVolt1', data: data.trayCellminVolt1 },
+          { id: 'TrayCellminVolt2', data: data.trayCellminVolt2 },
+          { id: 'TrayCellminVolt3', data: data.trayCellminVolt3 },
+          { id: 'TrayCellminVolt4', data: data.trayCellminVolt4 },
+          { id: 'TrayCellminVolt5', data: data.trayCellminVolt5 },
+          { id: 'TrayCellminVolt6', data: data.trayCellminVolt6 },
+          { id: 'TrayCellminVolt7', data: data.trayCellminVolt7 },
+          { id: 'TrayCellminVolt8', data: data.trayCellminVolt8 },
+          { id: 'TrayCellminVolt9', data: data.trayCellminVolt9 },
         ]}
         xScale={{
           type: 'time',

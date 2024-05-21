@@ -28,15 +28,15 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
         width={600}
         height={300}
         data={[
-          { id: 'trayCellDifTemp1', data: data.trayCellDifTemp1 },
-          { id: 'trayCellDifTemp2', data: data.trayCellDifTemp2 },
-          { id: 'trayCellDifTemp3', data: data.trayCellDifTemp3 },
-          { id: 'trayCellDifTemp4', data: data.trayCellDifTemp4 },
-          { id: 'trayCellDifTemp5', data: data.trayCellDifTemp5 },
-          { id: 'trayCellDifTemp6', data: data.trayCellDifTemp6 },
-          { id: 'trayCellDifTemp7', data: data.trayCellDifTemp7 },
-          { id: 'trayCellDifTemp8', data: data.trayCellDifTemp8 },
-          { id: 'trayCellDifTemp9', data: data.trayCellDifTemp9 },
+          { id: 'TrayCellDifTemp1', data: data.trayCellDifTemp1 },
+          { id: 'TrayCellDifTemp2', data: data.trayCellDifTemp2 },
+          { id: 'TrayCellDifTemp3', data: data.trayCellDifTemp3 },
+          { id: 'TrayCellDifTemp4', data: data.trayCellDifTemp4 },
+          { id: 'TrayCellDifTemp5', data: data.trayCellDifTemp5 },
+          { id: 'TrayCellDifTemp6', data: data.trayCellDifTemp6 },
+          { id: 'TrayCellDifTemp7', data: data.trayCellDifTemp7 },
+          { id: 'TrayCellDifTemp8', data: data.trayCellDifTemp8 },
+          { id: 'TrayCellDifTemp9', data: data.trayCellDifTemp9 },
         ]}
         xScale={{
           type: 'time',

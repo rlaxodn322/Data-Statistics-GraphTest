@@ -28,15 +28,15 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
         width={600}
         height={300}
         data={[
-          { id: 'trayCellmaxTemp1', data: data.trayCellmaxTemp1 },
-          { id: 'trayCellmaxTemp2', data: data.trayCellmaxTemp2 },
-          { id: 'trayCellmaxTemp3', data: data.trayCellmaxTemp3 },
-          { id: 'trayCellmaxTemp4', data: data.trayCellmaxTemp4 },
-          { id: 'trayCellmaxTemp5', data: data.trayCellmaxTemp5 },
-          { id: 'trayCellmaxTemp6', data: data.trayCellmaxTemp6 },
-          { id: 'trayCellmaxTemp7', data: data.trayCellmaxTemp7 },
-          { id: 'trayCellmaxTemp8', data: data.trayCellmaxTemp8 },
-          { id: 'trayCellmaxTemp9', data: data.trayCellmaxTemp9 },
+          { id: 'TrayCellmaxTemp1', data: data.trayCellmaxTemp1 },
+          { id: 'TrayCellmaxTemp2', data: data.trayCellmaxTemp2 },
+          { id: 'TrayCellmaxTemp3', data: data.trayCellmaxTemp3 },
+          { id: 'TrayCellmaxTemp4', data: data.trayCellmaxTemp4 },
+          { id: 'TrayCellmaxTemp5', data: data.trayCellmaxTemp5 },
+          { id: 'TrayCellmaxTemp6', data: data.trayCellmaxTemp6 },
+          { id: 'TrayCellmaxTemp7', data: data.trayCellmaxTemp7 },
+          { id: 'TrayCellmaxTemp8', data: data.trayCellmaxTemp8 },
+          { id: 'TrayCellmaxTemp9', data: data.trayCellmaxTemp9 },
         ]}
         xScale={{
           type: 'time',

@@ -1,10 +1,10 @@
-// (can data RackNumber filter 후)
+// 전 코드-(can data RackNumber filter 전)
 
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { graphget } from '../../../components/apis/graph/graphtest';
+import { graphget } from '../../../components/apis/graph/graph';
 import Graph3 from '../../../components/graph/tempavggraph';
 import Graph4 from '../../../components/graph/voltavggraph';
 import Graph5 from '../../../components/graph/tempmaxgraph';
@@ -30,9 +30,6 @@ const DatePickers = styled.div`
 `;
 
 const DatePickerWrapper = styled.div`
-  margin: 0 10px;
-`;
-const InputWrapper = styled.div`
   margin: 0 10px;
 `;
 
@@ -221,7 +218,6 @@ const Home = () => {
     trayCellDifVolt8: [],
     trayCellDifVolt9: [],
   });
-  const [rackNumber, setRackNumber] = useState<string>(''); // RackNumber 상태 추가
 
   const currentDateTime = new Date(); // 현재 시간을 얻습니다.
   const koreaTime = new Date(currentDateTime.getTime() + 9 * 60 * 60 * 1000); // 현재 시간에 9시간을 더하여 한국 시간으로 설정합니다.
@@ -232,12 +228,12 @@ const Home = () => {
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate, rackNumber]); // rackNumber 상태에 의존
+  }, [startDate, endDate]);
 
   const fetchData = () => {
     const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
     const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
-    graphget(startTime.toISOString(), endTime.toISOString(), rackNumber)
+    graphget(startTime.toISOString(), endTime.toISOString())
       .then((response: any) => {
         const receivedData = response;
 
@@ -442,12 +438,6 @@ const Home = () => {
           <label>End Date: </label>
           <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} showTimeSelect dateFormat="Pp" />
         </DatePickerWrapper>
-        <InputWrapper>
-          {' '}
-          {/* RackNumber 입력란 */}
-          <label>RackNumber: </label>
-          <input type="text" value={rackNumber} onChange={(e) => setRackNumber(e.target.value)} />
-        </InputWrapper>
       </DatePickers>
 
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
