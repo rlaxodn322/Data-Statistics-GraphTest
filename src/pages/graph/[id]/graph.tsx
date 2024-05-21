@@ -450,22 +450,17 @@ const Home = () => {
         </InputWrapper>
       </DatePickers>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Graph3 data={data1} />
-        <Graph4 data={data} />
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Graph5 data={data2} />
-        <Graph6 data={data3} />
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Graph7 data={data4} />
-        <Graph8 data={data5} />
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Graph9 data={data6} />
-        <Graph10 data={data7} />
-      </div>
+      <Graph3 data={data1} />
+      <Graph4 data={data} />
+
+      <Graph5 data={data2} />
+      <Graph6 data={data3} />
+
+      <Graph7 data={data4} />
+      <Graph8 data={data5} />
+
+      <Graph9 data={data6} />
+      <Graph10 data={data7} />
     </Page>
   );
 };

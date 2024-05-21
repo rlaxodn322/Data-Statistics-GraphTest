@@ -25,8 +25,8 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
     <div>
       <h2>Tray Cell Temp 최소 데이터 그래프</h2>
       <Line
-        width={600}
-        height={300}
+        width={900}
+        height={400}
         data={[
           { id: 'TrayCellminTemp1', data: data.trayCellminTemp1 },
           { id: 'TrayCellminTemp2', data: data.trayCellminTemp2 },

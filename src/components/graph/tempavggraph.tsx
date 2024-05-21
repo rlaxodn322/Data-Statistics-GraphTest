@@ -25,8 +25,8 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
     <div>
       <h2>Tray Cell Temp 평균 데이터 그래프</h2>
       <Line
-        width={600}
-        height={300}
+        width={900}
+        height={400}
         data={[
           { id: 'TrayCellTemp1', data: data.trayCellTemp1 },
           { id: 'TrayCellTemp2', data: data.trayCellTemp2 },
@@ -48,7 +48,7 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
         yScale={{ type: 'linear', min: 'auto', max: 'auto' }}
         axisBottom={{
           format: '%b %d, %H:%M',
-          tickValues: 'every 2 hours',
+          tickValues: 'every 24 hours',
         }}
         axisLeft={{
           tickSize: 5,

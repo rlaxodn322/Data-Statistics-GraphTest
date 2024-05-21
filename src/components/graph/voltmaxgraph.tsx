@@ -25,8 +25,8 @@ const Graph3: React.FC<Graph4Props> = ({ data }) => {
     <div>
       <h2>Tray Cell Volt 최대 데이터 그래프</h2>
       <Line
-        width={600}
-        height={300}
+        width={900}
+        height={400}
         data={[
           { id: 'TrayCellmaxVolt1', data: data.trayCellmaxVolt1 },
           { id: 'TrayCellmaxVolt2', data: data.trayCellmaxVolt2 },

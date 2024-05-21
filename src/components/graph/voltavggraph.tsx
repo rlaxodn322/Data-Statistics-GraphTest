@@ -23,8 +23,8 @@ const Graph1: React.FC<{ data: GraphData }> = ({ data }) => {
     <div>
       <h2>Tray Cell Volt 평균 데이터 그래프</h2>
       <Line
-        width={600}
-        height={300}
+        width={900}
+        height={400}
         data={[
           { id: 'TrayCellVolt1', data: data.trayCellVolt1 },
           { id: 'TrayCellVolt2', data: data.trayCellVolt2 },

@@ -1,6 +1,6 @@
-// (can data RackNumber filter 후)
+// (can data RackNumber filter 전)
 import React, { useState, useEffect } from 'react';
-import { graphget } from '../../../components/apis/graph/graphtest';
+import { graphget } from '../../../components/apis/graph/graph';
 import styled from '@emotion/styled';
 import { Input } from 'antd';
 
@@ -20,20 +20,22 @@ const Home = () => {
   const [rackNumberSearch, setRackNumberSearch] = useState('');
   const [columnSearch, setColumnSearch] = useState('');
   const [noDataMessage, setNoDataMessage] = useState('');
-
   useEffect(() => {
     fetchData();
+    // const intervalId = setInterval(fetchData, 3000);
+    // return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate, rackNumberSearch]);
+  }, [startDate, endDate]);
 
   const fetchData = () => {
     const startTime = startDate.toISOString();
     const endTime = endDate.toISOString();
 
-    graphget(startTime, endTime, rackNumberSearch)
+    graphget(startTime, endTime)
       .then((response) => {
         const receivedData = response;
 
+        console.log(receivedData);
         if (receivedData && receivedData.length > 0) {
           const formattedData = receivedData.map(
             (item: {
@@ -71,54 +73,54 @@ const Home = () => {
                 TrayCellMaxTemp3: any;
                 TrayCellMinTemp3: any;
                 TrayCellDifTemp3: any;
-                TrayCellAvgTemp4: any;
-                TrayCellMaxTemp4: any;
-                TrayCellMinTemp4: any;
-                TrayCellDifTemp4: any;
                 TrayCellAvgVolt4: any;
                 TrayCellMaxVolt4: any;
                 TrayCellMinVolt4: any;
                 TrayCellDifVolt4: any;
-                TrayCellAvgTemp5: any;
-                TrayCellMaxTemp5: any;
-                TrayCellMinTemp5: any;
-                TrayCellDifTemp5: any;
+                TrayCellAvgTemp4: any;
+                TrayCellMaxTemp4: any;
+                TrayCellMinTemp4: any;
+                TrayCellDifTemp4: any;
                 TrayCellAvgVolt5: any;
                 TrayCellMaxVolt5: any;
                 TrayCellMinVolt5: any;
                 TrayCellDifVolt5: any;
-                TrayCellAvgTemp6: any;
-                TrayCellMaxTemp6: any;
-                TrayCellMinTemp6: any;
-                TrayCellDifTemp6: any;
+                TrayCellAvgTemp5: any;
+                TrayCellMaxTemp5: any;
+                TrayCellMinTemp5: any;
+                TrayCellDifTemp5: any;
                 TrayCellAvgVolt6: any;
                 TrayCellMaxVolt6: any;
                 TrayCellMinVolt6: any;
                 TrayCellDifVolt6: any;
-                TrayCellAvgTemp7: any;
-                TrayCellMaxTemp7: any;
-                TrayCellMinTemp7: any;
-                TrayCellDifTemp7: any;
+                TrayCellAvgTemp6: any;
+                TrayCellMaxTemp6: any;
+                TrayCellMinTemp6: any;
+                TrayCellDifTemp6: any;
                 TrayCellAvgVolt7: any;
                 TrayCellMaxVolt7: any;
                 TrayCellMinVolt7: any;
                 TrayCellDifVolt7: any;
-                TrayCellAvgTemp8: any;
-                TrayCellMaxTemp8: any;
-                TrayCellMinTemp8: any;
-                TrayCellDifTemp8: any;
+                TrayCellAvgTemp7: any;
+                TrayCellMaxTemp7: any;
+                TrayCellMinTemp7: any;
+                TrayCellDifTemp7: any;
                 TrayCellAvgVolt8: any;
                 TrayCellMaxVolt8: any;
                 TrayCellMinVolt8: any;
                 TrayCellDifVolt8: any;
-                TrayCellAvgTemp9: any;
-                TrayCellMaxTemp9: any;
-                TrayCellMinTemp9: any;
-                TrayCellDifTemp9: any;
+                TrayCellAvgTemp8: any;
+                TrayCellMaxTemp8: any;
+                TrayCellMinTemp8: any;
+                TrayCellDifTemp8: any;
                 TrayCellAvgVolt9: any;
                 TrayCellMaxVolt9: any;
                 TrayCellMinVolt9: any;
                 TrayCellDifVolt9: any;
+                TrayCellAvgTemp9: any;
+                TrayCellMaxTemp9: any;
+                TrayCellMinTemp9: any;
+                TrayCellDifTemp9: any;
               };
             }) => ({
               time: item.time,
@@ -199,7 +201,7 @@ const Home = () => {
             }),
           );
           setTableData(formattedData);
-          setNoDataMessage('');
+          setNoDataMessage(''); // 데이터가 있으면 메시지 초기화
         } else {
           setTableData([]);
           setNoDataMessage('해당 날짜 및 검색어는 존재하지 않습니다.');
@@ -238,6 +240,7 @@ const Home = () => {
     if (filteredData.length === 0) {
       return <p>{noDataMessage}</p>;
     }
+
     const allColumns = [
       'time',
       'RackNumber',
@@ -245,76 +248,78 @@ const Home = () => {
       'TrayCellMaxVolt1',
       'TrayCellMinVolt1',
       'TrayCellDifVolt1',
+      // 'TrayCellAvgVolt2',
+      // 'TrayCellMaxVolt2',
+      // 'TrayCellMinVolt2',
+      // 'TrayCellDifVolt2',
+      // 'TrayCellAvgVolt3',
+      // 'TrayCellMaxVolt3',
+      // 'TrayCellMinVolt3',
+      // 'TrayCellDifVolt3',
+      // 'TrayCellAvgVolt4',
+      // 'TrayCellMaxVolt4',
+      // 'TrayCellMinVolt4',
+      // 'TrayCellDifVolt4',
+      // 'TrayCellAvgVolt5',
+      // 'TrayCellMaxVolt5',
+      // 'TrayCellMinVolt5',
+      // 'TrayCellDifVolt5',
+      // 'TrayCellAvgVolt6',
+      // 'TrayCellMaxVolt6',
+      // 'TrayCellMinVolt6',
+      // 'TrayCellDifVolt6',
+      // 'TrayCellAvgVolt7',
+      // 'TrayCellMaxVolt7',
+      // 'TrayCellMinVolt7',
+      // 'TrayCellDifVolt7',
+      // 'TrayCellAvgVolt8',
+      // 'TrayCellMaxVolt8',
+      // 'TrayCellMinVolt8',
+      // 'TrayCellDifVolt8',
+      // 'TrayCellAvgVolt9',
+      // 'TrayCellMaxVolt9',
+      // 'TrayCellMinVolt9',
+      // 'TrayCellDifVolt9',
       'TrayCellAvgTemp1',
       'TrayCellMaxTemp1',
       'TrayCellMinTemp1',
       'TrayCellDifTemp1',
-      'TrayCellAvgVolt2',
-      'TrayCellMaxVolt2',
-      'TrayCellMinVolt2',
-      'TrayCellDifVolt2',
-      'TrayCellAvgTemp2',
-      'TrayCellMaxTemp2',
-      'TrayCellMinTemp2',
-      'TrayCellDifTemp2',
-      'TrayCellAvgVolt3',
-      'TrayCellMaxVolt3',
-      'TrayCellMinVolt3',
-      'TrayCellDifVolt3',
-      'TrayCellAvgTemp3',
-      'TrayCellMaxTemp3',
-      'TrayCellMinTemp3',
-      'TrayCellDifTemp3',
-      'TrayCellAvgVolt4',
-      'TrayCellMaxVolt4',
-      'TrayCellMinVolt4',
-      'TrayCellDifVolt4',
-      'TrayCellAvgTemp4',
-      'TrayCellMaxTemp4',
-      'TrayCellMinTemp4',
-      'TrayCellDifTemp4',
-      'TrayCellAvgVolt5',
-      'TrayCellMaxVolt5',
-      'TrayCellMinVolt5',
-      'TrayCellDifVolt5',
-      'TrayCellAvgTemp5',
-      'TrayCellMaxTemp5',
-      'TrayCellMinTemp5',
-      'TrayCellDifTemp5',
-      'TrayCellAvgVolt6',
-      'TrayCellMaxVolt6',
-      'TrayCellMinVolt6',
-      'TrayCellDifVolt6',
-      'TrayCellAvgTemp6',
-      'TrayCellMaxTemp6',
-      'TrayCellMinTemp6',
-      'TrayCellDifTemp6',
-      'TrayCellAvgVolt7',
-      'TrayCellMaxVolt7',
-      'TrayCellMinVolt7',
-      'TrayCellDifVolt7',
-      'TrayCellAvgTemp7',
-      'TrayCellMaxTemp7',
-      'TrayCellMinTemp7',
-      'TrayCellDifTemp7',
-      'TrayCellAvgVolt8',
-      'TrayCellMaxVolt8',
-      'TrayCellMinVolt8',
-      'TrayCellDifVolt8',
-      'TrayCellAvgTemp8',
-      'TrayCellMaxTemp8',
-      'TrayCellMinTemp8',
-      'TrayCellDifTemp8',
-      'TrayCellAvgVolt9',
-      'TrayCellMaxVolt9',
-      'TrayCellMinVolt9',
-      'TrayCellDifVolt9',
-      'TrayCellAvgTemp9',
-      'TrayCellMaxTemp9',
-      'TrayCellMinTemp9',
-      'TrayCellDifTemp9',
+      // 'TrayCellAvgTemp2',
+      // 'TrayCellMaxTemp2',
+      // 'TrayCellMinTemp2',
+      // 'TrayCellDifTemp2',
+      // 'TrayCellAvgTemp3',
+      // 'TrayCellMaxTemp3',
+      // 'TrayCellMinTemp3',
+      // 'TrayCellDifTemp3',
+      // 'TrayCellAvgTemp4',
+      // 'TrayCellMaxTemp4',
+      // 'TrayCellMinTemp4',
+      // 'TrayCellDifTemp4',
+      // 'TrayCellAvgTemp5',
+      // 'TrayCellMaxTemp5',
+      // 'TrayCellMinTemp5',
+      // 'TrayCellDifTemp5',
+      // 'TrayCellAvgTemp6',
+      // 'TrayCellMaxTemp6',
+      // 'TrayCellMinTemp6',
+      // 'TrayCellDifTemp6',
+      // 'TrayCellAvgTemp7',
+      // 'TrayCellMaxTemp7',
+      // 'TrayCellMinTemp7',
+      // 'TrayCellDifTemp7',
+      // 'TrayCellAvgTemp8',
+      // 'TrayCellMaxTemp8',
+      // 'TrayCellMinTemp8',
+      // 'TrayCellDifTemp8',
+      // 'TrayCellAvgTemp9',
+      // 'TrayCellMaxTemp9',
+      // 'TrayCellMinTemp9',
+      // 'TrayCellDifTemp9',
     ];
+
     const columnsToDisplay = columnSearch ? ['time', 'RackNumber', columnSearch] : allColumns;
+
     return (
       <table className="data-table">
         <thead>
@@ -336,13 +341,13 @@ const Home = () => {
       </table>
     );
   };
-
   return (
     <Page>
       <h2>{title}</h2>
+
       <div className="container">
         <div className="date-picker">
-          <label style={{ fontSize: '15px' }}>시작 날짜 : </label>
+          <label style={{ fontSize: '15px' }}>시작 날짜: </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
             type="date"
@@ -352,7 +357,7 @@ const Home = () => {
           />
         </div>
         <div className="date-picker">
-          <label style={{ fontSize: '15px' }}>종료 날짜 : </label>
+          <label style={{ fontSize: '15px' }}>종료 날짜: </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
             type="date"
@@ -361,26 +366,28 @@ const Home = () => {
             onChange={handleDateChange}
           />
         </div>
-        <div className="search-bar">
-          <label style={{ fontSize: '15px', marginRight: '20px' }}>랙 번호: </label>
+        <div className="search">
+          <label style={{ fontSize: '15px' }}>Rack 검색: </label>
           <Input
+            style={{ width: '20%', marginBottom: '10px' }}
             type="text"
             value={rackNumberSearch}
-            style={{ width: '20%', marginBottom: '10px' }}
-            placeholder="랙 번호 검색"
             onChange={handleRackNumberSearchChange}
           />
         </div>
-        <div className="search-bar">
-          <label style={{ fontSize: '15px', marginRight: '-5px' }}>Tray name: </label>
+        <div className="search">
+          <label style={{ fontSize: '15px' }}>Cell 검색: </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
-            placeholder="Tray name 검색"
+            type="text"
+            value={columnSearch}
             onChange={handleColumnSearchChange}
           />
         </div>
+        <div style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
+          <div className="table-container">{renderTable()}</div>
+        </div>
       </div>
-      <div className="table-container">{renderTable()}</div>
     </Page>
   );
 };
