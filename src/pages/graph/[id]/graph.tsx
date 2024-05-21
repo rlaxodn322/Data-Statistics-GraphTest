@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { graphget } from '../../../components/apis/graph/graphtest';
+import { graphget, graphget1 } from '../../../components/apis/graph/graphtest';
+
 import Graph3 from '../../../components/graph/tempavggraph';
 import Graph4 from '../../../components/graph/voltavggraph';
 import Graph5 from '../../../components/graph/tempmaxgraph';
@@ -13,6 +14,7 @@ import Graph7 from '../../../components/graph/tempmingraph';
 import Graph8 from '../../../components/graph/voltmingraph';
 import Graph9 from '../../../components/graph/tempdifgraph';
 import Graph10 from '../../../components/graph/voltdifgraph';
+import Graph11 from '../../../components/graph/battery';
 
 const Page = styled.section`
   text-align: center;
@@ -131,7 +133,9 @@ interface GraphData7 {
   trayCellDifVolt8: GraphDataItem[];
   trayCellDifVolt9: GraphDataItem[];
 }
-
+interface GraphData8 {
+  batteryData: GraphDataItem[];
+}
 const Home = () => {
   const [data, setData] = useState<GraphData>({
     trayCellVolt1: [],
@@ -221,6 +225,10 @@ const Home = () => {
     trayCellDifVolt8: [],
     trayCellDifVolt9: [],
   });
+  const [battery, setBattery] = useState<GraphData8>({
+    batteryData: [],
+  });
+
   const [rackNumber, setRackNumber] = useState<string>(''); // RackNumber 상태 추가
 
   const currentDateTime = new Date(); // 현재 시간을 얻습니다.
@@ -228,15 +236,25 @@ const Home = () => {
 
   const [startDate, setStartDate] = useState(koreaTime); // 초기값을 한국 시간으로 설정합니다.
   const [endDate, setEndDate] = useState(koreaTime);
-
+  // eslint-disable-next-line no-unused-vars
+  const [title, setTitle] = useState('car001');
   useEffect(() => {
-    fetchData();
+    if (rackNumber) {
+      fetchData();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate, rackNumber]); // rackNumber 상태에 의존
+  useEffect(() => {
+    if (startDate && endDate) {
+      fetchData1();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startDate, endDate]); // rackNumber 상태에 의존
 
   const fetchData = () => {
     const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
     const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
+
     graphget(startTime.toISOString(), endTime.toISOString(), rackNumber)
       .then((response: any) => {
         const receivedData = response;
@@ -331,6 +349,8 @@ const Home = () => {
           const trayCellDifVolt8 = filterValidData(receivedData, 'TrayCellDifVolt8');
           const trayCellDifVolt9 = filterValidData(receivedData, 'TrayCellDifVolt9');
 
+          // const batteryData = filterValidData(receivedData, 'Battery');
+
           setData({
             trayCellVolt1,
             trayCellVolt2,
@@ -419,6 +439,38 @@ const Home = () => {
             trayCellDifVolt8,
             trayCellDifVolt9,
           });
+          // setBattery({
+          //   batteryData,
+          // });
+        }
+      })
+      .catch((error: any) => {
+        console.error('Error fetching data:', error);
+      });
+  };
+  const fetchData1 = () => {
+    const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
+    const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
+
+    graphget1(startTime.toISOString(), endTime.toISOString())
+      .then((response: any) => {
+        const receivedData = response;
+
+        if (receivedData && receivedData.length > 0) {
+          const filterValidData = (dataArray: any[], key: string) => {
+            return dataArray
+              .map((item) => ({
+                x: item.time,
+                y: isNaN(item.data[key]) ? 0 : item.data[key], // NaN 값을 0으로 대체
+              }))
+              .filter((item) => item.y !== null); // null 값을 필터링
+          };
+
+          const batteryData = filterValidData(receivedData, 'Battery');
+
+          setBattery({
+            batteryData,
+          });
         }
       })
       .catch((error: any) => {
@@ -428,6 +480,7 @@ const Home = () => {
 
   return (
     <Page>
+      <h2>{title}</h2>
       <DatePickers>
         <DatePickerWrapper>
           <label>Start Date: </label>
@@ -449,16 +502,13 @@ const Home = () => {
           <input type="text" value={rackNumber} onChange={(e) => setRackNumber(e.target.value)} />
         </InputWrapper>
       </DatePickers>
-
+      <Graph11 data={battery} />
       <Graph3 data={data1} />
       <Graph4 data={data} />
-
       <Graph5 data={data2} />
       <Graph6 data={data3} />
-
       <Graph7 data={data4} />
       <Graph8 data={data5} />
-
       <Graph9 data={data6} />
       <Graph10 data={data7} />
     </Page>

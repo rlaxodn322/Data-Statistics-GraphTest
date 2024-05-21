@@ -6,38 +6,20 @@ interface GraphDataItem {
   y: number;
 }
 
-interface Graph4Props {
+interface Graph3Props {
   data: {
-    trayCellminVolt1: GraphDataItem[];
-    trayCellminVolt2: GraphDataItem[];
-    trayCellminVolt3: GraphDataItem[];
-    trayCellminVolt4: GraphDataItem[];
-    trayCellminVolt5: GraphDataItem[];
-    trayCellminVolt6: GraphDataItem[];
-    trayCellminVolt7: GraphDataItem[];
-    trayCellminVolt8: GraphDataItem[];
-    trayCellminVolt9: GraphDataItem[];
+    batteryData: GraphDataItem[];
   };
 }
 
-const Graph3: React.FC<Graph4Props> = ({ data }) => {
+const Graph3: React.FC<Graph3Props> = ({ data }) => {
   return (
     <div>
-      <h2>Tray Cell Volt 최소 데이터 그래프</h2>
+      <h2>배터리 데이터 그래프</h2>
       <Line
         width={900}
         height={400}
-        data={[
-          { id: 'TrayCellminVolt1', data: data.trayCellminVolt1 },
-          { id: 'TrayCellminVolt2', data: data.trayCellminVolt2 },
-          { id: 'TrayCellminVolt3', data: data.trayCellminVolt3 },
-          { id: 'TrayCellminVolt4', data: data.trayCellminVolt4 },
-          { id: 'TrayCellminVolt5', data: data.trayCellminVolt5 },
-          { id: 'TrayCellminVolt6', data: data.trayCellminVolt6 },
-          { id: 'TrayCellminVolt7', data: data.trayCellminVolt7 },
-          { id: 'TrayCellminVolt8', data: data.trayCellminVolt8 },
-          { id: 'TrayCellminVolt9', data: data.trayCellminVolt9 },
-        ]}
+        data={[{ id: 'Battery', data: data.batteryData }]}
         xScale={{
           type: 'time',
           format: '%Y-%m-%dT%H:%M:%S.%LZ',
@@ -48,12 +30,12 @@ const Graph3: React.FC<Graph4Props> = ({ data }) => {
         yScale={{ type: 'linear', min: 'auto', max: 'auto' }}
         axisBottom={{
           format: '%b %d, %H:%M',
-          tickValues: 'every 5 hours',
+          tickValues: 'every 20 hours',
         }}
         axisLeft={{
-          tickSize: 5,
-          tickPadding: 5,
-          tickRotation: 0,
+          legend: 'day hour',
+          legendOffset: -80,
+          legendPosition: 'middle',
         }}
         curve="linear"
         enableSlices="x"

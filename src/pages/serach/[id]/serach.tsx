@@ -22,7 +22,10 @@ const Home = () => {
   const [noDataMessage, setNoDataMessage] = useState('');
 
   useEffect(() => {
-    fetchData();
+    if (rackNumberSearch) {
+      fetchData();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate, rackNumberSearch]);
 
@@ -41,6 +44,7 @@ const Home = () => {
               time: any;
               RackNumber: any;
               data: {
+                Battery: any;
                 TrayCellVolt1: any;
                 TrayCellTemp1: any;
                 TrayCellVolt2: any;
@@ -124,6 +128,7 @@ const Home = () => {
               time: item.time,
               RackNumber: item.RackNumber,
               Title: item.clientId,
+              Battery: item.data.Battery,
               TrayCellAvgVolt1: item.data.TrayCellAvgVolt1,
               TrayCellMaxVolt1: item.data.TrayCellMaxVolt1,
               TrayCellMinVolt1: item.data.TrayCellMinVolt1,
@@ -241,6 +246,7 @@ const Home = () => {
     const allColumns = [
       'time',
       'RackNumber',
+      'Battery',
       'TrayCellAvgVolt1',
       'TrayCellMaxVolt1',
       'TrayCellMinVolt1',
@@ -342,7 +348,7 @@ const Home = () => {
       <h2>{title}</h2>
       <div className="container">
         <div className="date-picker">
-          <label style={{ fontSize: '15px' }}>시작 날짜 : </label>
+          <label style={{ fontSize: '15px', marginRight: '10px' }}>시작 날짜 : </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
             type="date"
@@ -352,7 +358,7 @@ const Home = () => {
           />
         </div>
         <div className="date-picker">
-          <label style={{ fontSize: '15px' }}>종료 날짜 : </label>
+          <label style={{ fontSize: '15px', marginRight: '10px' }}>종료 날짜 : </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
             type="date"
@@ -362,7 +368,7 @@ const Home = () => {
           />
         </div>
         <div className="search-bar">
-          <label style={{ fontSize: '15px', marginRight: '20px' }}>랙 번호: </label>
+          <label style={{ fontSize: '15px', marginRight: '25px' }}>랙 번호 : </label>
           <Input
             type="text"
             value={rackNumberSearch}
@@ -372,7 +378,7 @@ const Home = () => {
           />
         </div>
         <div className="search-bar">
-          <label style={{ fontSize: '15px', marginRight: '-5px' }}>Tray name: </label>
+          <label style={{ fontSize: '15px' }}>Tray name : </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
             placeholder="Tray name 검색"

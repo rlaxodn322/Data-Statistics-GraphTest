@@ -8,10 +8,20 @@ axios.defaults.withCredentials = true;
 export async function graphget(startTime: string, endTime: string, rackNumber: string) {
   try {
     const response = await axios.get(
-      `/graphtest2/getdata?startTime=${startTime}&endTime=${endTime}&rackNumber=${rackNumber}`,
+      `/graphtest/getdata?startTime=${startTime}&endTime=${endTime}&rackNumber=${rackNumber}`,
     );
     return response.data;
   } catch (error) {
     throw new Error(`Error fetching data: ${error}`);
+  }
+}
+
+export async function graphget1(startTime: string, endTime: string) {
+  try {
+    const response = await axios.get(`/graphtest/getdata1?startTime=${startTime}&endTime=${endTime}`);
+    return response.data;
+  } catch (error) {
+    //console.log(error);
+    //throw new Error(`Error fetching data: ${error}`);
   }
 }

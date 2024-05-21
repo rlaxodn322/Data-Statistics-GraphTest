@@ -48,7 +48,7 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
         yScale={{ type: 'linear', min: 'auto', max: 'auto' }}
         axisBottom={{
           format: '%b %d, %H:%M',
-          tickValues: 'every 24 hours',
+          tickValues: 'every 5 hours',
         }}
         axisLeft={{
           tickSize: 5,

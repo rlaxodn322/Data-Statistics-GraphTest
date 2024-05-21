@@ -5,7 +5,7 @@ import { backUrl } from '../../../config/config';
 axios.defaults.baseURL = backUrl;
 axios.defaults.withCredentials = true;
 
-export async function graphget(startTime: string, endTime: string) {
+export async function graphget1(startTime: string, endTime: string) {
   try {
     const response = await axios.get(`/graphtest/getdata?startTime=${startTime}&endTime=${endTime}`);
     return response.data;
