@@ -13,7 +13,12 @@ interface GraphProps {
 
 const Graph: React.FC<GraphProps> = ({ data, title }) => {
   const formattedData = Object.keys(data).map((key) => ({ id: key, data: data[key] }));
+  const isEmptyData = Object.values(data).every((item) => item.length === 0);
 
+  // 데이터가 비어있으면 null 반환
+  if (isEmptyData) {
+    return null;
+  }
   return (
     <div>
       <h2>{title}</h2>

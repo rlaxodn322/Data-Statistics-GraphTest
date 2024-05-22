@@ -257,7 +257,7 @@ const Home = () => {
   }, [startDate, endDate]); // rackNumber 상태에 의존
 
   const fetchData = () => {
-    if (startDate && endDate) {
+    if (startDate && endDate && rackNumber) {
       const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
       const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
 

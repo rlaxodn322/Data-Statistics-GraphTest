@@ -256,7 +256,7 @@ const Home = () => {
       return rackNumberMatches;
     });
     if (filteredData.length === 0) {
-      return <p>{noDataMessage}</p>;
+      return <p style={{ marginRight: '10px' }}>{noDataMessage}</p>;
     }
     const trayColumns: Record<number, string[]> = {
       1: [
