@@ -1,8 +1,8 @@
-// (can data RackNumber filter 전)
+// (can data RackNumber filter 후)
 import React, { useState, useEffect } from 'react';
-import { graphget } from '../../../components/apis/graph/graph';
+import { graphget } from '../../../components/apis/graph/graphtest';
 import styled from '@emotion/styled';
-import { Input } from 'antd';
+import { Button, Input } from 'antd';
 
 const Page = styled.section`
   text-align: center;
@@ -10,7 +10,13 @@ const Page = styled.section`
   width: 1300px;
   font-size: 12px;
 `;
+const ButtonContainer = styled.div`
+  width: 400px;
+  margin: 0 auto;
 
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
+`;
 const Home = () => {
   const [tableData, setTableData] = useState<any[]>([]);
   const [startDate, setStartDate] = useState(new Date('0000-01-01T00:00:00Z'));
@@ -18,24 +24,26 @@ const Home = () => {
   // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState('car001');
   const [rackNumberSearch, setRackNumberSearch] = useState('');
-  const [columnSearch, setColumnSearch] = useState('');
+  // const [columnSearch, setColumnSearch] = useState('');
   const [noDataMessage, setNoDataMessage] = useState('');
+  const [selectedTray, setSelectedTray] = useState<number | null>(null);
+
   useEffect(() => {
-    fetchData();
-    // const intervalId = setInterval(fetchData, 3000);
-    // return () => clearInterval(intervalId);
+    if (rackNumberSearch) {
+      fetchData();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate]);
+  }, [startDate, endDate, rackNumberSearch]);
 
   const fetchData = () => {
     const startTime = startDate.toISOString();
     const endTime = endDate.toISOString();
 
-    graphget(startTime, endTime)
+    graphget(startTime, endTime, rackNumberSearch)
       .then((response) => {
         const receivedData = response;
 
-        console.log(receivedData);
         if (receivedData && receivedData.length > 0) {
           const formattedData = receivedData.map(
             (item: {
@@ -43,6 +51,7 @@ const Home = () => {
               time: any;
               RackNumber: any;
               data: {
+                Battery: any;
                 TrayCellVolt1: any;
                 TrayCellTemp1: any;
                 TrayCellVolt2: any;
@@ -73,59 +82,60 @@ const Home = () => {
                 TrayCellMaxTemp3: any;
                 TrayCellMinTemp3: any;
                 TrayCellDifTemp3: any;
-                TrayCellAvgVolt4: any;
-                TrayCellMaxVolt4: any;
-                TrayCellMinVolt4: any;
-                TrayCellDifVolt4: any;
                 TrayCellAvgTemp4: any;
                 TrayCellMaxTemp4: any;
                 TrayCellMinTemp4: any;
                 TrayCellDifTemp4: any;
-                TrayCellAvgVolt5: any;
-                TrayCellMaxVolt5: any;
-                TrayCellMinVolt5: any;
-                TrayCellDifVolt5: any;
+                TrayCellAvgVolt4: any;
+                TrayCellMaxVolt4: any;
+                TrayCellMinVolt4: any;
+                TrayCellDifVolt4: any;
                 TrayCellAvgTemp5: any;
                 TrayCellMaxTemp5: any;
                 TrayCellMinTemp5: any;
                 TrayCellDifTemp5: any;
-                TrayCellAvgVolt6: any;
-                TrayCellMaxVolt6: any;
-                TrayCellMinVolt6: any;
-                TrayCellDifVolt6: any;
+                TrayCellAvgVolt5: any;
+                TrayCellMaxVolt5: any;
+                TrayCellMinVolt5: any;
+                TrayCellDifVolt5: any;
                 TrayCellAvgTemp6: any;
                 TrayCellMaxTemp6: any;
                 TrayCellMinTemp6: any;
                 TrayCellDifTemp6: any;
-                TrayCellAvgVolt7: any;
-                TrayCellMaxVolt7: any;
-                TrayCellMinVolt7: any;
-                TrayCellDifVolt7: any;
+                TrayCellAvgVolt6: any;
+                TrayCellMaxVolt6: any;
+                TrayCellMinVolt6: any;
+                TrayCellDifVolt6: any;
                 TrayCellAvgTemp7: any;
                 TrayCellMaxTemp7: any;
                 TrayCellMinTemp7: any;
                 TrayCellDifTemp7: any;
-                TrayCellAvgVolt8: any;
-                TrayCellMaxVolt8: any;
-                TrayCellMinVolt8: any;
-                TrayCellDifVolt8: any;
+                TrayCellAvgVolt7: any;
+                TrayCellMaxVolt7: any;
+                TrayCellMinVolt7: any;
+                TrayCellDifVolt7: any;
                 TrayCellAvgTemp8: any;
                 TrayCellMaxTemp8: any;
                 TrayCellMinTemp8: any;
                 TrayCellDifTemp8: any;
-                TrayCellAvgVolt9: any;
-                TrayCellMaxVolt9: any;
-                TrayCellMinVolt9: any;
-                TrayCellDifVolt9: any;
+                TrayCellAvgVolt8: any;
+                TrayCellMaxVolt8: any;
+                TrayCellMinVolt8: any;
+                TrayCellDifVolt8: any;
                 TrayCellAvgTemp9: any;
                 TrayCellMaxTemp9: any;
                 TrayCellMinTemp9: any;
                 TrayCellDifTemp9: any;
+                TrayCellAvgVolt9: any;
+                TrayCellMaxVolt9: any;
+                TrayCellMinVolt9: any;
+                TrayCellDifVolt9: any;
               };
             }) => ({
               time: item.time,
               RackNumber: item.RackNumber,
               Title: item.clientId,
+              Battery: item.data.Battery,
               TrayCellAvgVolt1: item.data.TrayCellAvgVolt1,
               TrayCellMaxVolt1: item.data.TrayCellMaxVolt1,
               TrayCellMinVolt1: item.data.TrayCellMinVolt1,
@@ -201,7 +211,7 @@ const Home = () => {
             }),
           );
           setTableData(formattedData);
-          setNoDataMessage(''); // 데이터가 있으면 메시지 초기화
+          setNoDataMessage('');
         } else {
           setTableData([]);
           setNoDataMessage('해당 날짜 및 검색어는 존재하지 않습니다.');
@@ -214,6 +224,14 @@ const Home = () => {
       });
   };
 
+  const handleButtonClick = (rackNumber: string) => {
+    setRackNumberSearch(rackNumber);
+    fetchData();
+  };
+  const handleTrayButtonClick = (trayNumber: number) => {
+    setSelectedTray(trayNumber);
+  };
+
   const handleDateChange = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
     if (name === 'startDate') {
@@ -223,13 +241,13 @@ const Home = () => {
     }
   };
 
-  const handleRackNumberSearchChange = (event: { target: { value: string } }) => {
-    setRackNumberSearch(event.target.value);
-  };
+  // const handleRackNumberSearchChange = (event: { target: { value: string } }) => {
+  //   setRackNumberSearch(event.target.value);
+  // };
 
-  const handleColumnSearchChange = (event: { target: { value: string } }) => {
-    setColumnSearch(event.target.value);
-  };
+  // const handleColumnSearchChange = (event: { target: { value: string } }) => {
+  //   setColumnSearch(event.target.value);
+  // };
 
   const renderTable = () => {
     const filteredData = tableData.filter((data) => {
@@ -240,100 +258,200 @@ const Home = () => {
     if (filteredData.length === 0) {
       return <p>{noDataMessage}</p>;
     }
-
-    const allColumns = [
-      'time',
-      'RackNumber',
-      'TrayCellAvgVolt1',
-      'TrayCellMaxVolt1',
-      'TrayCellMinVolt1',
-      'TrayCellDifVolt1',
-      // 'TrayCellAvgVolt2',
-      // 'TrayCellMaxVolt2',
-      // 'TrayCellMinVolt2',
-      // 'TrayCellDifVolt2',
-      // 'TrayCellAvgVolt3',
-      // 'TrayCellMaxVolt3',
-      // 'TrayCellMinVolt3',
-      // 'TrayCellDifVolt3',
-      // 'TrayCellAvgVolt4',
-      // 'TrayCellMaxVolt4',
-      // 'TrayCellMinVolt4',
-      // 'TrayCellDifVolt4',
-      // 'TrayCellAvgVolt5',
-      // 'TrayCellMaxVolt5',
-      // 'TrayCellMinVolt5',
-      // 'TrayCellDifVolt5',
-      // 'TrayCellAvgVolt6',
-      // 'TrayCellMaxVolt6',
-      // 'TrayCellMinVolt6',
-      // 'TrayCellDifVolt6',
-      // 'TrayCellAvgVolt7',
-      // 'TrayCellMaxVolt7',
-      // 'TrayCellMinVolt7',
-      // 'TrayCellDifVolt7',
-      // 'TrayCellAvgVolt8',
-      // 'TrayCellMaxVolt8',
-      // 'TrayCellMinVolt8',
-      // 'TrayCellDifVolt8',
-      // 'TrayCellAvgVolt9',
-      // 'TrayCellMaxVolt9',
-      // 'TrayCellMinVolt9',
-      // 'TrayCellDifVolt9',
-      'TrayCellAvgTemp1',
-      'TrayCellMaxTemp1',
-      'TrayCellMinTemp1',
-      'TrayCellDifTemp1',
-      // 'TrayCellAvgTemp2',
-      // 'TrayCellMaxTemp2',
-      // 'TrayCellMinTemp2',
-      // 'TrayCellDifTemp2',
-      // 'TrayCellAvgTemp3',
-      // 'TrayCellMaxTemp3',
-      // 'TrayCellMinTemp3',
-      // 'TrayCellDifTemp3',
-      // 'TrayCellAvgTemp4',
-      // 'TrayCellMaxTemp4',
-      // 'TrayCellMinTemp4',
-      // 'TrayCellDifTemp4',
-      // 'TrayCellAvgTemp5',
-      // 'TrayCellMaxTemp5',
-      // 'TrayCellMinTemp5',
-      // 'TrayCellDifTemp5',
-      // 'TrayCellAvgTemp6',
-      // 'TrayCellMaxTemp6',
-      // 'TrayCellMinTemp6',
-      // 'TrayCellDifTemp6',
-      // 'TrayCellAvgTemp7',
-      // 'TrayCellMaxTemp7',
-      // 'TrayCellMinTemp7',
-      // 'TrayCellDifTemp7',
-      // 'TrayCellAvgTemp8',
-      // 'TrayCellMaxTemp8',
-      // 'TrayCellMinTemp8',
-      // 'TrayCellDifTemp8',
-      // 'TrayCellAvgTemp9',
-      // 'TrayCellMaxTemp9',
-      // 'TrayCellMinTemp9',
-      // 'TrayCellDifTemp9',
-    ];
-
-    const columnsToDisplay = columnSearch ? ['time', 'RackNumber', columnSearch] : allColumns;
+    const trayColumns: Record<number, string[]> = {
+      1: [
+        'TrayCellAvgVolt1',
+        'TrayCellMaxVolt1',
+        'TrayCellMinVolt1',
+        'TrayCellDifVolt1',
+        'TrayCellAvgTemp1',
+        'TrayCellMaxTemp1',
+        'TrayCellMinTemp1',
+        'TrayCellDifTemp1',
+      ],
+      2: [
+        'TrayCellAvgVolt2',
+        'TrayCellMaxVolt2',
+        'TrayCellMinVolt2',
+        'TrayCellDifVolt2',
+        'TrayCellAvgTemp2',
+        'TrayCellMaxTemp2',
+        'TrayCellMinTemp2',
+        'TrayCellDifTemp2',
+      ],
+      3: [
+        'TrayCellAvgVolt3',
+        'TrayCellMaxVolt3',
+        'TrayCellMinVolt3',
+        'TrayCellDifVolt3',
+        'TrayCellAvgTemp3',
+        'TrayCellMaxTemp3',
+        'TrayCellMinTemp3',
+        'TrayCellDifTemp3',
+      ],
+      4: [
+        'TrayCellAvgVolt4',
+        'TrayCellMaxVolt4',
+        'TrayCellMinVolt4',
+        'TrayCellDifVolt4',
+        'TrayCellAvgTemp4',
+        'TrayCellMaxTemp4',
+        'TrayCellMinTemp4',
+        'TrayCellDifTemp4',
+      ],
+      5: [
+        'TrayCellAvgVolt5',
+        'TrayCellMaxVolt5',
+        'TrayCellMinVolt5',
+        'TrayCellDifVolt5',
+        'TrayCellAvgTemp5',
+        'TrayCellMaxTemp5',
+        'TrayCellMinTemp5',
+        'TrayCellDifTemp5',
+      ],
+      6: [
+        'TrayCellAvgVolt6',
+        'TrayCellMaxVolt6',
+        'TrayCellMinVolt6',
+        'TrayCellDifVolt6',
+        'TrayCellAvgTemp6',
+        'TrayCellMaxTemp6',
+        'TrayCellMinTemp6',
+        'TrayCellDifTemp6',
+      ],
+      7: [
+        'TrayCellAvgVolt7',
+        'TrayCellMaxVolt7',
+        'TrayCellMinVolt7',
+        'TrayCellDifVolt7',
+        'TrayCellAvgTemp7',
+        'TrayCellMaxTemp7',
+        'TrayCellMinTemp7',
+        'TrayCellDifTemp7',
+      ],
+      8: [
+        'TrayCellAvgVolt8',
+        'TrayCellMaxVolt8',
+        'TrayCellMinVolt8',
+        'TrayCellDifVolt8',
+        'TrayCellAvgTemp8',
+        'TrayCellMaxTemp8',
+        'TrayCellMinTemp8',
+        'TrayCellDifTemp8',
+      ],
+      9: [
+        'TrayCellAvgVolt9',
+        'TrayCellMaxVolt9',
+        'TrayCellMinVolt9',
+        'TrayCellDifVolt9',
+        'TrayCellAvgTemp9',
+        'TrayCellMaxTemp9',
+        'TrayCellMinTemp9',
+        'TrayCellDifTemp9',
+      ],
+      // Add remaining tray mappings here
+    };
+    // const allColumns = [
+    //   'time',
+    //   'RackNumber',
+    //   'Battery',
+    //   'TrayCellAvgVolt1',
+    //   'TrayCellMaxVolt1',
+    //   'TrayCellMinVolt1',
+    //   'TrayCellDifVolt1',
+    //   'TrayCellAvgTemp1',
+    //   'TrayCellMaxTemp1',
+    //   'TrayCellMinTemp1',
+    //   'TrayCellDifTemp1',
+    //   'TrayCellAvgVolt2',
+    //   'TrayCellMaxVolt2',
+    //   'TrayCellMinVolt2',
+    //   'TrayCellDifVolt2',
+    //   'TrayCellAvgTemp2',
+    //   'TrayCellMaxTemp2',
+    //   'TrayCellMinTemp2',
+    //   'TrayCellDifTemp2',
+    //   'TrayCellAvgVolt3',
+    //   'TrayCellMaxVolt3',
+    //   'TrayCellMinVolt3',
+    //   'TrayCellDifVolt3',
+    //   'TrayCellAvgTemp3',
+    //   'TrayCellMaxTemp3',
+    //   'TrayCellMinTemp3',
+    //   'TrayCellDifTemp3',
+    //   'TrayCellAvgVolt4',
+    //   'TrayCellMaxVolt4',
+    //   'TrayCellMinVolt4',
+    //   'TrayCellDifVolt4',
+    //   'TrayCellAvgTemp4',
+    //   'TrayCellMaxTemp4',
+    //   'TrayCellMinTemp4',
+    //   'TrayCellDifTemp4',
+    //   'TrayCellAvgVolt5',
+    //   'TrayCellMaxVolt5',
+    //   'TrayCellMinVolt5',
+    //   'TrayCellDifVolt5',
+    //   'TrayCellAvgTemp5',
+    //   'TrayCellMaxTemp5',
+    //   'TrayCellMinTemp5',
+    //   'TrayCellDifTemp5',
+    //   'TrayCellAvgVolt6',
+    //   'TrayCellMaxVolt6',
+    //   'TrayCellMinVolt6',
+    //   'TrayCellDifVolt6',
+    //   'TrayCellAvgTemp6',
+    //   'TrayCellMaxTemp6',
+    //   'TrayCellMinTemp6',
+    //   'TrayCellDifTemp6',
+    //   'TrayCellAvgVolt7',
+    //   'TrayCellMaxVolt7',
+    //   'TrayCellMinVolt7',
+    //   'TrayCellDifVolt7',
+    //   'TrayCellAvgTemp7',
+    //   'TrayCellMaxTemp7',
+    //   'TrayCellMinTemp7',
+    //   'TrayCellDifTemp7',
+    //   'TrayCellAvgVolt8',
+    //   'TrayCellMaxVolt8',
+    //   'TrayCellMinVolt8',
+    //   'TrayCellDifVolt8',
+    //   'TrayCellAvgTemp8',
+    //   'TrayCellMaxTemp8',
+    //   'TrayCellMinTemp8',
+    //   'TrayCellDifTemp8',
+    //   'TrayCellAvgVolt9',
+    //   'TrayCellMaxVolt9',
+    //   'TrayCellMinVolt9',
+    //   'TrayCellDifVolt9',
+    //   'TrayCellAvgTemp9',
+    //   'TrayCellMaxTemp9',
+    //   'TrayCellMinTemp9',
+    //   'TrayCellDifTemp9',
+    // ];
+    const selectedColumns = selectedTray ? trayColumns[selectedTray as number] : [];
 
     return (
-      <table className="data-table">
+      <table style={{ borderCollapse: 'collapse', margin: '0 auto' }}>
         <thead>
           <tr>
-            {columnsToDisplay.map((column) => (
-              <th key={column}>{column}</th>
+            <th>Time</th>
+            <th>Rack Number</th>
+            <th>Title</th>
+            <th>Battery</th>
+            {selectedColumns.map((col, index) => (
+              <th key={index}>{col}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           {filteredData.map((data, index) => (
             <tr key={index}>
-              {columnsToDisplay.map((column) => (
-                <td key={column}>{data[column]}</td>
+              <td>{data.time}</td>
+              <td>{data.RackNumber}</td>
+              <td>{data.Title}</td>
+              <td>{data.Battery}</td>
+              {selectedColumns.map((col) => (
+                <td key={col}>{data[col]}</td>
               ))}
             </tr>
           ))}
@@ -341,13 +459,14 @@ const Home = () => {
       </table>
     );
   };
+
   return (
     <Page>
       <h2>{title}</h2>
 
       <div className="container">
         <div className="date-picker">
-          <label style={{ fontSize: '15px' }}>시작 날짜: </label>
+          <label style={{ fontSize: '15px', marginRight: '10px' }}>시작 날짜 : </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
             type="date"
@@ -357,7 +476,7 @@ const Home = () => {
           />
         </div>
         <div className="date-picker">
-          <label style={{ fontSize: '15px' }}>종료 날짜: </label>
+          <label style={{ fontSize: '15px', marginRight: '10px' }}>종료 날짜 : </label>
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
             type="date"
@@ -366,28 +485,131 @@ const Home = () => {
             onChange={handleDateChange}
           />
         </div>
-        <div className="search">
-          <label style={{ fontSize: '15px' }}>Rack 검색: </label>
+        <h3>Rack 번호 클릭 </h3>
+        <ButtonContainer>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleButtonClick('01')}
+          >
+            Rack 1
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleButtonClick('02')}
+          >
+            Rack 2
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleButtonClick('03')}
+          >
+            Rack 3
+          </Button>
+        </ButtonContainer>
+        <ButtonContainer style={{ marginBottom: '10px' }}>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleButtonClick('04')}
+          >
+            Rack 4
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleButtonClick('05')}
+          >
+            Rack 5
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleButtonClick('06')}
+          >
+            Rack 6
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleButtonClick('07')}
+          >
+            Rack 7
+          </Button>
+        </ButtonContainer>
+        {/* <div className="search-bar">
+          <label style={{ fontSize: '15px', marginRight: '25px' }}>랙 번호 : </label>
           <Input
+            // type="text"
+            // value={rackNumberSearch}
             style={{ width: '20%', marginBottom: '10px' }}
-            type="text"
-            value={rackNumberSearch}
+            placeholder="랙 번호 검색"
             onChange={handleRackNumberSearchChange}
           />
-        </div>
-        <div className="search">
-          <label style={{ fontSize: '15px' }}>Cell 검색: </label>
+        </div> */}
+        <h3>Tray 번호 클릭 </h3>
+        <ButtonContainer>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(1)}
+          >
+            Tray 1
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(2)}
+          >
+            Tray 2
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(3)}
+          >
+            Tray 3
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(4)}
+          >
+            Tray 4
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(5)}
+          >
+            Tray 5
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(6)}
+          >
+            Tray 6
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(7)}
+          >
+            Tray 7
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(8)}
+          >
+            Tray 8
+          </Button>
+          <Button
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            onClick={() => handleTrayButtonClick(9)}
+          >
+            Tray 9
+          </Button>
+        </ButtonContainer>
+        {/* <div className="search-bar">
+          <label style={{ fontSize: '15px' }}>Tray name : </label>
+          
           <Input
             style={{ width: '20%', marginBottom: '10px' }}
-            type="text"
-            value={columnSearch}
+            placeholder="Tray name 검색"
             onChange={handleColumnSearchChange}
           />
-        </div>
-        <div style={{ margin: '0 auto', display: 'flex', justifyContent: 'center' }}>
-          <div className="table-container">{renderTable()}</div>
-        </div>
+        </div> */}
       </div>
+      <div className="table-container">{renderTable()}</div>
     </Page>
   );
 };

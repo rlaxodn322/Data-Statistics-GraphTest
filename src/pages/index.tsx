@@ -21,11 +21,17 @@ const Home = () => {
         <title>B&FCS</title>
       </Head>
       <Page>
-        <Link href={'/serach/0/serach'}>
+        <Link href={'/serach/0/serachtest'}>
           <Button>조회 페이지</Button>
         </Link>
         <Link href={'/graph/0/graph'}>
-          <Button>그래프 페이지</Button>
+          <Button>1호차 그래프 페이지</Button>
+        </Link>
+        <Link href={'/graph/0/graph'}>
+          <Button>2호차 그래프 페이지</Button>
+        </Link>
+        <Link href={'/graph/0/graph'}>
+          <Button>3호차 그래프 페이지</Button>
         </Link>
       </Page>
     </>

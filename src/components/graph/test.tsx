@@ -6,20 +6,21 @@ interface GraphDataItem {
   y: number;
 }
 
-interface Graph3Props {
-  data: {
-    batteryData: GraphDataItem[];
-  };
+interface GraphProps {
+  data: { [key: string]: GraphDataItem[] };
+  title: string;
 }
 
-const Graph3: React.FC<Graph3Props> = ({ data }) => {
+const Graph: React.FC<GraphProps> = ({ data, title }) => {
+  const formattedData = Object.keys(data).map((key) => ({ id: key, data: data[key] }));
+
   return (
     <div>
-      <h2>배터리 데이터 그래프</h2>
+      <h2>{title}</h2>
       <Line
         width={900}
         height={400}
-        data={[{ id: 'Battery', data: data.batteryData }]}
+        data={formattedData}
         xScale={{
           type: 'time',
           format: '%Y-%m-%dT%H:%M:%S.%LZ',
@@ -33,9 +34,9 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
           tickValues: 'every 24 hours',
         }}
         axisLeft={{
-          legend: 'day hour',
-          legendOffset: -80,
-          legendPosition: 'middle',
+          tickSize: 5,
+          tickPadding: 5,
+          tickRotation: 0,
         }}
         curve="linear"
         enableSlices="x"
@@ -66,4 +67,4 @@ const Graph3: React.FC<Graph3Props> = ({ data }) => {
   );
 };
 
-export default Graph3;
+export default Graph;

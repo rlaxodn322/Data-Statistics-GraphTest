@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { graphget } from '../../../components/apis/graph/graphtest';
 import styled from '@emotion/styled';
-import { Input } from 'antd';
+import { Button, Input } from 'antd';
 
 const Page = styled.section`
   text-align: center;
@@ -10,7 +10,12 @@ const Page = styled.section`
   width: 1300px;
   font-size: 12px;
 `;
-
+const ButtonContainer = styled.div`
+  width: 299px;
+  margin: 0 auto;
+  /* margin-top: 10px; */
+  /* margin-bottom: 10px; */
+`;
 const Home = () => {
   const [tableData, setTableData] = useState<any[]>([]);
   const [startDate, setStartDate] = useState(new Date('0000-01-01T00:00:00Z'));
@@ -216,6 +221,14 @@ const Home = () => {
         setNoDataMessage('데이터 가져오기 오류가 발생했습니다.');
       });
   };
+  const handleButtonClick = (rackNumber: string) => {
+    setRackNumberSearch(rackNumber);
+    fetchData();
+  };
+  // const handleButtonClick1 = (rackNumber: string) => {
+  //   setColumnSearch(rackNumber);
+  //   fetchData();
+  // };
 
   const handleDateChange = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
@@ -346,6 +359,7 @@ const Home = () => {
   return (
     <Page>
       <h2>{title}</h2>
+
       <div className="container">
         <div className="date-picker">
           <label style={{ fontSize: '15px', marginRight: '10px' }}>시작 날짜 : </label>
@@ -367,6 +381,17 @@ const Home = () => {
             onChange={handleDateChange}
           />
         </div>
+        <ButtonContainer>
+          <Button onClick={() => handleButtonClick('01')}>Rack 1</Button>
+          <Button onClick={() => handleButtonClick('02')}>Rack 2</Button>
+          <Button onClick={() => handleButtonClick('03')}>Rack 3</Button>
+        </ButtonContainer>
+        <ButtonContainer style={{ marginBottom: '10px' }}>
+          <Button onClick={() => handleButtonClick('04')}>Rack 4</Button>
+          <Button onClick={() => handleButtonClick('05')}>Rack 5</Button>
+          <Button onClick={() => handleButtonClick('06')}>Rack 6</Button>
+          <Button onClick={() => handleButtonClick('07')}>Rack 7</Button>
+        </ButtonContainer>
         <div className="search-bar">
           <label style={{ fontSize: '15px', marginRight: '25px' }}>랙 번호 : </label>
           <Input
@@ -377,6 +402,17 @@ const Home = () => {
             onChange={handleRackNumberSearchChange}
           />
         </div>
+        <ButtonContainer>
+          <Button>Tray 1</Button>
+          <Button>Tray 2</Button>
+          <Button>Tray 3</Button>
+          <Button>Tray 4</Button>
+          <Button>Tray 5</Button>
+          <Button>Tray 6</Button>
+          <Button>Tray 7</Button>
+          <Button>Tray 8</Button>
+          <Button>Tray 9</Button>
+        </ButtonContainer>
         <div className="search-bar">
           <label style={{ fontSize: '15px' }}>Tray name : </label>
           <Input
