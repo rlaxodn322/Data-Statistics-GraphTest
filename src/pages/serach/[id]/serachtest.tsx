@@ -17,8 +17,22 @@ const ButtonContainer = styled.div`
   /* margin-top: 10px; */
   /* margin-bottom: 10px; */
 `;
-const InputWrapper = styled.div`
-  margin: 0 10px;
+// const InputWrapper = styled.div`
+//   margin: 0 10px;
+// `;
+const DropBox = styled.select`
+  width: 250px;
+  height: 40px;
+  border: solid 1px lightgray;
+  border-radius: 8px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-size: 15px;
+  text-indent: 5px;
+  & option {
+    font-size: 16px;
+  }
 `;
 const Home = () => {
   const [tableData, setTableData] = useState<any[]>([]);
@@ -133,6 +147,7 @@ const Home = () => {
                 TrayCellMaxVolt9: any;
                 TrayCellMinVolt9: any;
                 TrayCellDifVolt9: any;
+                FalutWarning: any;
               };
             }) => ({
               time: item.time,
@@ -211,6 +226,7 @@ const Home = () => {
               CellMaxVolt9: item.data.TrayCellMaxVolt9,
               CellMinVolt9: item.data.TrayCellMinVolt9,
               CellDifVolt9: item.data.TrayCellDifVolt9,
+              FalutWarning: item.data.FalutWarning,
             }),
           );
           setTableData(formattedData);
@@ -243,7 +259,12 @@ const Home = () => {
       setEndDate(new Date(value));
     }
   };
-
+  const selectList = [
+    { value: '', name: '' },
+    { value: 'car001', name: '1호' },
+    { value: 'car002', name: '2호' },
+    { value: 'car003', name: '3호' },
+  ];
   const renderTable = () => {
     const filteredData = tableData.filter((data) => {
       const rackNumberMatches =
@@ -263,6 +284,7 @@ const Home = () => {
         'CellMaxTemp1',
         'CellMinTemp1',
         'CellDifTemp1',
+        'FalutWarning',
       ],
       2: [
         'CellAvgVolt2',
@@ -273,6 +295,7 @@ const Home = () => {
         'CellMaxTemp2',
         'CellMinTemp2',
         'CellDifTemp2',
+        'FalutWarning',
       ],
       3: [
         'CellAvgVolt3',
@@ -283,6 +306,7 @@ const Home = () => {
         'CellMaxTemp3',
         'CellMinTemp3',
         'CellDifTemp3',
+        'FalutWarning',
       ],
       4: [
         'CellAvgVolt4',
@@ -293,6 +317,7 @@ const Home = () => {
         'CellMaxTemp4',
         'CellMinTemp4',
         'CellDifTemp4',
+        'FalutWarning',
       ],
       5: [
         'CellAvgVolt5',
@@ -303,6 +328,7 @@ const Home = () => {
         'CellMaxTemp5',
         'CellMinTemp5',
         'CellDifTemp5',
+        'FalutWarning',
       ],
       6: [
         'CellAvgVolt6',
@@ -313,6 +339,7 @@ const Home = () => {
         'CellMaxTemp6',
         'CellMinTemp6',
         'CellDifTemp6',
+        'FalutWarning',
       ],
       7: [
         'CellAvgVolt7',
@@ -323,6 +350,7 @@ const Home = () => {
         'CellMaxTemp7',
         'CellMinTemp7',
         'CellDifTemp7',
+        'FalutWarning',
       ],
       8: [
         'CellAvgVolt8',
@@ -333,6 +361,7 @@ const Home = () => {
         'CellMaxTemp8',
         'CellMinTemp8',
         'CellDifTemp8',
+        'FalutWarning',
       ],
       9: [
         'CellAvgVolt9',
@@ -343,6 +372,7 @@ const Home = () => {
         'CellMaxTemp9',
         'CellMinTemp9',
         'CellDifTemp9',
+        'FalutWarning',
       ],
       // Add remaining tray mappings here
     };
@@ -381,17 +411,15 @@ const Home = () => {
 
   return (
     <Page>
-      <div className="container">
-        <InputWrapper>
-          {/* RackNumber 입력란 */}
-          <label>CarName: </label>
-          <Input
-            style={{ marginTop: '20px', marginLeft: '29px', marginBottom: '10px', width: '260px' }}
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </InputWrapper>
+      <div style={{ marginTop: '20px' }} className="container">
+        <label>CarNumber: </label>
+        <DropBox value={title} onChange={(e) => setTitle(e.target.value)}>
+          {selectList.map((item) => (
+            <option value={item.value} key={item.value}>
+              {item.name}
+            </option>
+          ))}
+        </DropBox>
         <div className="date-picker">
           <label style={{ fontSize: '15px', marginRight: '10px' }}>시작 날짜 : </label>
           <Input

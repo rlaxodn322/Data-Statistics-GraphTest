@@ -25,7 +25,7 @@ const Home = () => {
           <Button>조회 페이지</Button>
         </Link>
         <Link href={'/graph/0/graph'}>
-          <Button>1호차 그래프 페이지</Button>
+          <Button>그래프 페이지</Button>
         </Link>
         {/* <Link href={'/graph/0/graph'}>
           <Button>2호차 그래프 페이지</Button>

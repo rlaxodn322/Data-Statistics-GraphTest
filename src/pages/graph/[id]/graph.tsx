@@ -25,10 +25,22 @@ const DatePickers = styled.div`
 const DatePickerWrapper = styled.div`
   margin: 0 10px;
 `;
-const InputWrapper = styled.div`
-  margin: 0 10px;
+// const InputWrapper = styled.div`
+//   margin: 0 10px;
+// `;
+const DropBox = styled.select`
+  width: 100px;
+  height: 20px;
+  border: solid 1px rgb(250, 250, 250);
+  border-radius: 8px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  text-indent: 5px;
+  & option {
+    font-size: 16px;
+  }
 `;
-
 interface GraphDataItem {
   x: string;
   y: number;
@@ -242,15 +254,14 @@ const Home = () => {
   // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState<string>('');
   useEffect(() => {
-    if (rackNumber.length == 2) {
-      fetchData();
+    if (startDate && endDate) {
+      fetchData1();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate, rackNumber, title]); // rackNumber 상태에 의존
-
   useEffect(() => {
-    if (startDate && endDate) {
-      fetchData1();
+    if (rackNumber.length == 2) {
+      fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate, rackNumber, title]); // rackNumber 상태에 의존
@@ -484,16 +495,44 @@ const Home = () => {
       console.error('startDate와 endDate가 필요합니다.');
     }
   };
-
+  const selectList = [
+    { value: '', name: '' },
+    { value: 'car001', name: '1호' },
+    { value: 'car002', name: '2호' },
+    { value: 'car003', name: '3호' },
+  ];
+  const selectList1 = [
+    { value: '', name: '' },
+    { value: '01', name: '1번랙' },
+    { value: '02', name: '2번랙' },
+    { value: '03', name: '3번랙' },
+    { value: '04', name: '4번랙' },
+    { value: '05', name: '5번랙' },
+    { value: '06', name: '6번랙' },
+    { value: '07', name: '7번랙' },
+    { value: '08', name: '8번랙' },
+    { value: '09', name: '9번랙' },
+  ];
   return (
     <Page>
       <DatePickers>
-        <InputWrapper>
-          {' '}
-          {/* RackNumber 입력란 */}
-          <label>CarName: </label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-        </InputWrapper>
+        <label>CarNumber: </label>
+        <DropBox value={title} onChange={(e) => setTitle(e.target.value)}>
+          {selectList.map((item) => (
+            <option value={item.value} key={item.value}>
+              {item.name}
+            </option>
+          ))}
+        </DropBox>
+        <label style={{ marginLeft: '10px' }}>RackNumber: </label>
+        <DropBox value={rackNumber} onChange={(e) => setRackNumber(e.target.value)}>
+          {selectList1.map((item) => (
+            <option value={item.value} key={item.value}>
+              {item.name}
+            </option>
+          ))}
+        </DropBox>
+
         <DatePickerWrapper>
           <label>Start Date: </label>
           <DatePicker
@@ -507,12 +546,6 @@ const Home = () => {
           <label>End Date: </label>
           <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} showTimeSelect dateFormat="Pp" />
         </DatePickerWrapper>
-        <InputWrapper>
-          {' '}
-          {/* RackNumber 입력란 */}
-          <label>RackNumber: </label>
-          <input type="text" value={rackNumber} onChange={(e) => setRackNumber(e.target.value)} />
-        </InputWrapper>
       </DatePickers>
       {(!startDate || !endDate) && <p style={{ color: 'red', fontSize: '16px' }}>날짜를 입력해주세요</p>}
       {startDate && endDate && (
