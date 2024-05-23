@@ -36,7 +36,7 @@ const Graph: React.FC<GraphProps> = ({ data, title }) => {
         yScale={{ type: 'linear', min: 'auto', max: 'auto' }}
         axisBottom={{
           format: '%b %d, %H:%M',
-          tickValues: 'every 24 hours',
+          tickValues: 'every 1 hour',
         }}
         axisLeft={{
           tickSize: 5,

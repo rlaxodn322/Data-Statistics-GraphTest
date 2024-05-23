@@ -1,6 +1,6 @@
 // (can data RackNumber filter 후)
 import React, { useState, useEffect } from 'react';
-import { graphget } from '../../../components/apis/graph/graphtest';
+import { graphget2 } from '../../../components/apis/graph/graphtest';
 import styled from '@emotion/styled';
 import { Button, Input } from 'antd';
 
@@ -17,12 +17,15 @@ const ButtonContainer = styled.div`
   /* margin-top: 10px; */
   /* margin-bottom: 10px; */
 `;
+const InputWrapper = styled.div`
+  margin: 0 10px;
+`;
 const Home = () => {
   const [tableData, setTableData] = useState<any[]>([]);
   const [startDate, setStartDate] = useState(new Date('0000-01-01T00:00:00Z'));
   const [endDate, setEndDate] = useState(new Date('0000-01-02T00:00:00Z'));
   // eslint-disable-next-line no-unused-vars
-  const [title, setTitle] = useState('car001');
+  const [title, setTitle] = useState<string>('');
   const [rackNumberSearch, setRackNumberSearch] = useState('');
   // const [columnSearch, setColumnSearch] = useState('');
   const [noDataMessage, setNoDataMessage] = useState('');
@@ -34,13 +37,13 @@ const Home = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate, rackNumberSearch]);
+  }, [startDate, endDate, rackNumberSearch, title]);
 
   const fetchData = () => {
     const startTime = startDate.toISOString();
     const endTime = endDate.toISOString();
 
-    graphget(startTime, endTime, rackNumberSearch)
+    graphget2(startTime, endTime, rackNumberSearch, title)
       .then((response) => {
         const receivedData = response;
 
@@ -378,9 +381,17 @@ const Home = () => {
 
   return (
     <Page>
-      <h2>{title}</h2>
-
       <div className="container">
+        <InputWrapper>
+          {/* RackNumber 입력란 */}
+          <label>CarName: </label>
+          <Input
+            style={{ marginTop: '20px', marginLeft: '29px', marginBottom: '10px', width: '260px' }}
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </InputWrapper>
         <div className="date-picker">
           <label style={{ fontSize: '15px', marginRight: '10px' }}>시작 날짜 : </label>
           <Input

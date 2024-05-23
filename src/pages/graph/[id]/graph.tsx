@@ -242,11 +242,11 @@ const Home = () => {
   // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState<string>('');
   useEffect(() => {
-    if (rackNumber.length >= 2) {
+    if (rackNumber.length == 2) {
       fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rackNumber]); // rackNumber 상태에 의존
+  }, [startDate, endDate, rackNumber, title]); // rackNumber 상태에 의존
 
   useEffect(() => {
     if (startDate && endDate) {
