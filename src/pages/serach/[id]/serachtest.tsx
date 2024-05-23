@@ -44,7 +44,7 @@ const Home = () => {
   // const [columnSearch, setColumnSearch] = useState('');
   const [noDataMessage, setNoDataMessage] = useState('');
   const [selectedTray, setSelectedTray] = useState<number | null>(null);
-
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     if (rackNumberSearch) {
       fetchData();
@@ -54,6 +54,7 @@ const Home = () => {
   }, [startDate, endDate, rackNumberSearch, title]);
 
   const fetchData = () => {
+    setLoading(true);
     const startTime = startDate.toISOString();
     const endTime = endDate.toISOString();
 
@@ -240,6 +241,9 @@ const Home = () => {
         console.error('데이터 가져오기 오류:', error);
         setTableData([]);
         setNoDataMessage('데이터 가져오기 오류가 발생했습니다.');
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -545,6 +549,7 @@ const Home = () => {
             Tray9
           </Button>
         </ButtonContainer>
+        {loading ? <p>잠시만 기다려 주세요...</p> : renderTable()}
       </div>
       <div className="table-container">{renderTable()}</div>
     </Page>

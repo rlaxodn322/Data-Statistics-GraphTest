@@ -23,7 +23,7 @@ const Graph: React.FC<GraphProps> = ({ data, title }) => {
     <div>
       <h2>{title}</h2>
       <Line
-        width={900}
+        width={1200}
         height={400}
         data={formattedData}
         xScale={{
