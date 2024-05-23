@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { graphget, graphget1 } from '../../../components/apis/graph/graphtest';
+import { graphget1, graphget2 } from '../../../components/apis/graph/graphtest';
 import TestGraph from '../../../components/graph/test';
 
 const Page = styled.section`
@@ -240,8 +240,7 @@ const Home = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   // eslint-disable-next-line no-unused-vars
-  const [title, setTitle] = useState('car001');
-
+  const [title, setTitle] = useState<string>('');
   useEffect(() => {
     if (rackNumber.length >= 2) {
       fetchData();
@@ -254,14 +253,14 @@ const Home = () => {
       fetchData1();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate]); // rackNumber 상태에 의존
+  }, [startDate, endDate, rackNumber, title]); // rackNumber 상태에 의존
 
   const fetchData = () => {
     if (startDate && endDate && rackNumber) {
       const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
       const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
 
-      graphget(startTime.toISOString(), endTime.toISOString(), rackNumber)
+      graphget2(startTime.toISOString(), endTime.toISOString(), rackNumber, title)
         .then((response: any) => {
           const receivedData = response;
 
@@ -453,11 +452,11 @@ const Home = () => {
     }
   };
   const fetchData1 = () => {
-    if (startDate && endDate) {
+    if (startDate && endDate && title) {
       const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
       const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
 
-      graphget1(startTime.toISOString(), endTime.toISOString())
+      graphget1(startTime.toISOString(), endTime.toISOString(), title)
         .then((response: any) => {
           const receivedData = response;
 
@@ -488,8 +487,13 @@ const Home = () => {
 
   return (
     <Page>
-      <h2>{title}</h2>
       <DatePickers>
+        <InputWrapper>
+          {' '}
+          {/* RackNumber 입력란 */}
+          <label>CarName: </label>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+        </InputWrapper>
         <DatePickerWrapper>
           <label>Start Date: </label>
           <DatePicker

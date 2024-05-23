@@ -136,78 +136,78 @@ const Home = () => {
               RackNumber: item.RackNumber,
               Title: item.clientId,
               Battery: item.data.Battery,
-              TrayCellAvgVolt1: item.data.TrayCellAvgVolt1,
-              TrayCellMaxVolt1: item.data.TrayCellMaxVolt1,
-              TrayCellMinVolt1: item.data.TrayCellMinVolt1,
-              TrayCellDifVolt1: item.data.TrayCellDifVolt1,
-              TrayCellAvgVolt2: item.data.TrayCellAvgVolt2,
-              TrayCellMaxVolt2: item.data.TrayCellMaxVolt2,
-              TrayCellMinVolt2: item.data.TrayCellMinVolt2,
-              TrayCellDifVolt2: item.data.TrayCellDifVolt2,
-              TrayCellAvgVolt3: item.data.TrayCellAvgVolt3,
-              TrayCellMaxVolt3: item.data.TrayCellMaxVolt3,
-              TrayCellMinVolt3: item.data.TrayCellMinVolt3,
-              TrayCellDifVolt3: item.data.TrayCellDifVolt3,
-              TrayCellAvgTemp1: item.data.TrayCellAvgTemp1,
-              TrayCellMaxTemp1: item.data.TrayCellMaxTemp1,
-              TrayCellMinTemp1: item.data.TrayCellMinTemp1,
-              TrayCellDifTemp1: item.data.TrayDifTemp1,
-              TrayCellAvgTemp2: item.data.TrayCellAvgTemp2,
-              TrayCellMaxTemp2: item.data.TrayCellMaxTemp2,
-              TrayCellMinTemp2: item.data.TrayCellMinTemp2,
-              TrayCellDifTemp2: item.data.TrayCellDifTemp2,
-              TrayCellAvgTemp3: item.data.TrayCellAvgTemp3,
-              TrayCellMaxTemp3: item.data.TrayCellMaxTemp3,
-              TrayCellMinTemp3: item.data.TrayCellMinTemp3,
-              TrayCellDifTemp3: item.data.TrayCellDifTemp3,
-              TrayCellAvgTemp4: item.data.TrayCellAvgTemp4,
-              TrayCellMaxTemp4: item.data.TrayCellMaxTemp4,
-              TrayCellMinTemp4: item.data.TrayCellMinTemp4,
-              TrayCellDifTemp4: item.data.TrayCellDifTemp4,
-              TrayCellAvgVolt4: item.data.TrayCellAvgVolt4,
-              TrayCellMaxVolt4: item.data.TrayCellMaxVolt4,
-              TrayCellMinVolt4: item.data.TrayCellMinVolt4,
-              TrayCellDifVolt4: item.data.TrayCellDifVolt4,
-              TrayCellAvgTemp5: item.data.TrayCellAvgTemp5,
-              TrayCellMaxTemp5: item.data.TrayCellMaxTemp5,
-              TrayCellMinTemp5: item.data.TrayCellMinTemp5,
-              TrayCellDifTemp5: item.data.TrayCellDifTemp5,
-              TrayCellAvgVolt5: item.data.TrayCellAvgVolt5,
-              TrayCellMaxVolt5: item.data.TrayCellMaxVolt5,
-              TrayCellMinVolt5: item.data.TrayCellMinVolt5,
-              TrayCellDifVolt5: item.data.TrayCellDifVolt5,
-              TrayCellAvgTemp6: item.data.TrayCellAvgTemp6,
-              TrayCellMaxTemp6: item.data.TrayCellMaxTemp6,
-              TrayCellMinTemp6: item.data.TrayCellMinTemp6,
-              TrayCellDifTemp6: item.data.TrayCellDifTemp6,
-              TrayCellAvgVolt6: item.data.TrayCellAvgVolt6,
-              TrayCellMaxVolt6: item.data.TrayCellMaxVolt6,
-              TrayCellMinVolt6: item.data.TrayCellMinVolt6,
-              TrayCellDifVolt6: item.data.TrayCellDifVolt6,
-              TrayCellAvgTemp7: item.data.TrayCellAvgTemp7,
-              TrayCellMaxTemp7: item.data.TrayCellMaxTemp7,
-              TrayCellMinTemp7: item.data.TrayCellMinTemp7,
-              TrayCellDifTemp7: item.data.TrayCellDifTemp7,
-              TrayCellAvgVolt7: item.data.TrayCellAvgVolt7,
-              TrayCellMaxVolt7: item.data.TrayCellMaxVolt7,
-              TrayCellMinVolt7: item.data.TrayCellMinVolt7,
-              TrayCellDifVolt7: item.data.TrayCellDifVolt7,
-              TrayCellAvgTemp8: item.data.TrayCellAvgTemp8,
-              TrayCellMaxTemp8: item.data.TrayCellMaxTemp8,
-              TrayCellMinTemp8: item.data.TrayCellMinTemp8,
-              TrayCellDifTemp8: item.data.TrayCellDifTemp8,
-              TrayCellAvgVolt8: item.data.TrayCellAvgVolt8,
-              TrayCellMaxVolt8: item.data.TrayCellMaxVolt8,
-              TrayCellMinVolt8: item.data.TrayCellMinVolt8,
-              TrayCellDifVolt8: item.data.TrayCellDifVolt8,
-              TrayCellAvgTemp9: item.data.TrayCellAvgTemp9,
-              TrayCellMaxTemp9: item.data.TrayCellMaxTemp9,
-              TrayCellMinTemp9: item.data.TrayCellMinTemp9,
-              TrayCellDifTemp9: item.data.TrayCellDifTemp9,
-              TrayCellAvgVolt9: item.data.TrayCellAvgVolt9,
-              TrayCellMaxVolt9: item.data.TrayCellMaxVolt9,
-              TrayCellMinVolt9: item.data.TrayCellMinVolt9,
-              TrayCellDifVolt9: item.data.TrayCellDifVolt9,
+              CellAvgVolt1: item.data.TrayCellAvgVolt1,
+              CellMaxVolt1: item.data.TrayCellMaxVolt1,
+              CellMinVolt1: item.data.TrayCellMinVolt1,
+              CellDifVolt1: item.data.TrayCellDifVolt1,
+              CellAvgVolt2: item.data.TrayCellAvgVolt2,
+              CellMaxVolt2: item.data.TrayCellMaxVolt2,
+              CellMinVolt2: item.data.TrayCellMinVolt2,
+              CellDifVolt2: item.data.TrayCellDifVolt2,
+              CellAvgVolt3: item.data.TrayCellAvgVolt3,
+              CellMaxVolt3: item.data.TrayCellMaxVolt3,
+              CellMinVolt3: item.data.TrayCellMinVolt3,
+              CellDifVolt3: item.data.TrayCellDifVolt3,
+              CellAvgTemp1: item.data.TrayCellAvgTemp1,
+              CellMaxTemp1: item.data.TrayCellMaxTemp1,
+              CellMinTemp1: item.data.TrayCellMinTemp1,
+              CellDifTemp1: item.data.TrayDifTemp1,
+              CellAvgTemp2: item.data.TrayCellAvgTemp2,
+              CellMaxTemp2: item.data.TrayCellMaxTemp2,
+              CellMinTemp2: item.data.TrayCellMinTemp2,
+              CellDifTemp2: item.data.TrayCellDifTemp2,
+              CellAvgTemp3: item.data.TrayCellAvgTemp3,
+              CellMaxTemp3: item.data.TrayCellMaxTemp3,
+              CellMinTemp3: item.data.TrayCellMinTemp3,
+              CellDifTemp3: item.data.TrayCellDifTemp3,
+              CellAvgTemp4: item.data.TrayCellAvgTemp4,
+              CellMaxTemp4: item.data.TrayCellMaxTemp4,
+              CellMinTemp4: item.data.TrayCellMinTemp4,
+              CellDifTemp4: item.data.TrayCellDifTemp4,
+              CellAvgVolt4: item.data.TrayCellAvgVolt4,
+              CellMaxVolt4: item.data.TrayCellMaxVolt4,
+              CellMinVolt4: item.data.TrayCellMinVolt4,
+              CellDifVolt4: item.data.TrayCellDifVolt4,
+              CellAvgTemp5: item.data.TrayCellAvgTemp5,
+              CellMaxTemp5: item.data.TrayCellMaxTemp5,
+              CellMinTemp5: item.data.TrayCellMinTemp5,
+              CellDifTemp5: item.data.TrayCellDifTemp5,
+              CellAvgVolt5: item.data.TrayCellAvgVolt5,
+              CellMaxVolt5: item.data.TrayCellMaxVolt5,
+              CellMinVolt5: item.data.TrayCellMinVolt5,
+              CellDifVolt5: item.data.TrayCellDifVolt5,
+              CellAvgTemp6: item.data.TrayCellAvgTemp6,
+              CellMaxTemp6: item.data.TrayCellMaxTemp6,
+              CellMinTemp6: item.data.TrayCellMinTemp6,
+              CellDifTemp6: item.data.TrayCellDifTemp6,
+              CellAvgVolt6: item.data.TrayCellAvgVolt6,
+              CellMaxVolt6: item.data.TrayCellMaxVolt6,
+              CellMinVolt6: item.data.TrayCellMinVolt6,
+              CellDifVolt6: item.data.TrayCellDifVolt6,
+              CellAvgTemp7: item.data.TrayCellAvgTemp7,
+              CellMaxTemp7: item.data.TrayCellMaxTemp7,
+              CellMinTemp7: item.data.TrayCellMinTemp7,
+              CellDifTemp7: item.data.TrayCellDifTemp7,
+              CellAvgVolt7: item.data.TrayCellAvgVolt7,
+              CellMaxVolt7: item.data.TrayCellMaxVolt7,
+              CellMinVolt7: item.data.TrayCellMinVolt7,
+              CellDifVolt7: item.data.TrayCellDifVolt7,
+              CellAvgTemp8: item.data.TrayCellAvgTemp8,
+              CellMaxTemp8: item.data.TrayCellMaxTemp8,
+              CellMinTemp8: item.data.TrayCellMinTemp8,
+              CellDifTemp8: item.data.TrayCellDifTemp8,
+              CellAvgVolt8: item.data.TrayCellAvgVolt8,
+              CellMaxVolt8: item.data.TrayCellMaxVolt8,
+              CellMinVolt8: item.data.TrayCellMinVolt8,
+              CellDifVolt8: item.data.TrayCellDifVolt8,
+              CellAvgTemp9: item.data.TrayCellAvgTemp9,
+              CellMaxTemp9: item.data.TrayCellMaxTemp9,
+              CellMinTemp9: item.data.TrayCellMinTemp9,
+              CellDifTemp9: item.data.TrayCellDifTemp9,
+              CellAvgVolt9: item.data.TrayCellAvgVolt9,
+              CellMaxVolt9: item.data.TrayCellMaxVolt9,
+              CellMinVolt9: item.data.TrayCellMinVolt9,
+              CellDifVolt9: item.data.TrayCellDifVolt9,
             }),
           );
           setTableData(formattedData);
@@ -241,14 +241,6 @@ const Home = () => {
     }
   };
 
-  // const handleRackNumberSearchChange = (event: { target: { value: string } }) => {
-  //   setRackNumberSearch(event.target.value);
-  // };
-
-  // const handleColumnSearchChange = (event: { target: { value: string } }) => {
-  //   setColumnSearch(event.target.value);
-  // };
-
   const renderTable = () => {
     const filteredData = tableData.filter((data) => {
       const rackNumberMatches =
@@ -260,174 +252,98 @@ const Home = () => {
     }
     const trayColumns: Record<number, string[]> = {
       1: [
-        'TrayCellAvgVolt1',
-        'TrayCellMaxVolt1',
-        'TrayCellMinVolt1',
-        'TrayCellDifVolt1',
-        'TrayCellAvgTemp1',
-        'TrayCellMaxTemp1',
-        'TrayCellMinTemp1',
-        'TrayCellDifTemp1',
+        'CellAvgVolt1',
+        'CellMaxVolt1',
+        'CellMinVolt1',
+        'CellDifVolt1',
+        'CellAvgTemp1',
+        'CellMaxTemp1',
+        'CellMinTemp1',
+        'CellDifTemp1',
       ],
       2: [
-        'TrayCellAvgVolt2',
-        'TrayCellMaxVolt2',
-        'TrayCellMinVolt2',
-        'TrayCellDifVolt2',
-        'TrayCellAvgTemp2',
-        'TrayCellMaxTemp2',
-        'TrayCellMinTemp2',
-        'TrayCellDifTemp2',
+        'CellAvgVolt2',
+        'CellMaxVolt2',
+        'CellMinVolt2',
+        'CellDifVolt2',
+        'CellAvgTemp2',
+        'CellMaxTemp2',
+        'CellMinTemp2',
+        'CellDifTemp2',
       ],
       3: [
-        'TrayCellAvgVolt3',
-        'TrayCellMaxVolt3',
-        'TrayCellMinVolt3',
-        'TrayCellDifVolt3',
-        'TrayCellAvgTemp3',
-        'TrayCellMaxTemp3',
-        'TrayCellMinTemp3',
-        'TrayCellDifTemp3',
+        'CellAvgVolt3',
+        'CellMaxVolt3',
+        'CellMinVolt3',
+        'CellDifVolt3',
+        'CellAvgTemp3',
+        'CellMaxTemp3',
+        'CellMinTemp3',
+        'CellDifTemp3',
       ],
       4: [
-        'TrayCellAvgVolt4',
-        'TrayCellMaxVolt4',
-        'TrayCellMinVolt4',
-        'TrayCellDifVolt4',
-        'TrayCellAvgTemp4',
-        'TrayCellMaxTemp4',
-        'TrayCellMinTemp4',
-        'TrayCellDifTemp4',
+        'CellAvgVolt4',
+        'CellMaxVolt4',
+        'CellMinVolt4',
+        'CellDifVolt4',
+        'CellAvgTemp4',
+        'CellMaxTemp4',
+        'CellMinTemp4',
+        'CellDifTemp4',
       ],
       5: [
-        'TrayCellAvgVolt5',
-        'TrayCellMaxVolt5',
-        'TrayCellMinVolt5',
-        'TrayCellDifVolt5',
-        'TrayCellAvgTemp5',
-        'TrayCellMaxTemp5',
-        'TrayCellMinTemp5',
-        'TrayCellDifTemp5',
+        'CellAvgVolt5',
+        'CellMaxVolt5',
+        'CellMinVolt5',
+        'CellDifVolt5',
+        'CellAvgTemp5',
+        'CellMaxTemp5',
+        'CellMinTemp5',
+        'CellDifTemp5',
       ],
       6: [
-        'TrayCellAvgVolt6',
-        'TrayCellMaxVolt6',
-        'TrayCellMinVolt6',
-        'TrayCellDifVolt6',
-        'TrayCellAvgTemp6',
-        'TrayCellMaxTemp6',
-        'TrayCellMinTemp6',
-        'TrayCellDifTemp6',
+        'CellAvgVolt6',
+        'CellMaxVolt6',
+        'CellMinVolt6',
+        'CellDifVolt6',
+        'CellAvgTemp6',
+        'CellMaxTemp6',
+        'CellMinTemp6',
+        'CellDifTemp6',
       ],
       7: [
-        'TrayCellAvgVolt7',
-        'TrayCellMaxVolt7',
-        'TrayCellMinVolt7',
-        'TrayCellDifVolt7',
-        'TrayCellAvgTemp7',
-        'TrayCellMaxTemp7',
-        'TrayCellMinTemp7',
-        'TrayCellDifTemp7',
+        'CellAvgVolt7',
+        'CellMaxVolt7',
+        'CellMinVolt7',
+        'CellDifVolt7',
+        'CellAvgTemp7',
+        'CellMaxTemp7',
+        'CellMinTemp7',
+        'CellDifTemp7',
       ],
       8: [
-        'TrayCellAvgVolt8',
-        'TrayCellMaxVolt8',
-        'TrayCellMinVolt8',
-        'TrayCellDifVolt8',
-        'TrayCellAvgTemp8',
-        'TrayCellMaxTemp8',
-        'TrayCellMinTemp8',
-        'TrayCellDifTemp8',
+        'CellAvgVolt8',
+        'CellMaxVolt8',
+        'CellMinVolt8',
+        'CellDifVolt8',
+        'CellAvgTemp8',
+        'CellMaxTemp8',
+        'CellMinTemp8',
+        'CellDifTemp8',
       ],
       9: [
-        'TrayCellAvgVolt9',
-        'TrayCellMaxVolt9',
-        'TrayCellMinVolt9',
-        'TrayCellDifVolt9',
-        'TrayCellAvgTemp9',
-        'TrayCellMaxTemp9',
-        'TrayCellMinTemp9',
-        'TrayCellDifTemp9',
+        'CellAvgVolt9',
+        'CellMaxVolt9',
+        'CellMinVolt9',
+        'CellDifVolt9',
+        'CellAvgTemp9',
+        'CellMaxTemp9',
+        'CellMinTemp9',
+        'CellDifTemp9',
       ],
       // Add remaining tray mappings here
     };
-    // const allColumns = [
-    //   'time',
-    //   'RackNumber',
-    //   'Battery',
-    //   'TrayCellAvgVolt1',
-    //   'TrayCellMaxVolt1',
-    //   'TrayCellMinVolt1',
-    //   'TrayCellDifVolt1',
-    //   'TrayCellAvgTemp1',
-    //   'TrayCellMaxTemp1',
-    //   'TrayCellMinTemp1',
-    //   'TrayCellDifTemp1',
-    //   'TrayCellAvgVolt2',
-    //   'TrayCellMaxVolt2',
-    //   'TrayCellMinVolt2',
-    //   'TrayCellDifVolt2',
-    //   'TrayCellAvgTemp2',
-    //   'TrayCellMaxTemp2',
-    //   'TrayCellMinTemp2',
-    //   'TrayCellDifTemp2',
-    //   'TrayCellAvgVolt3',
-    //   'TrayCellMaxVolt3',
-    //   'TrayCellMinVolt3',
-    //   'TrayCellDifVolt3',
-    //   'TrayCellAvgTemp3',
-    //   'TrayCellMaxTemp3',
-    //   'TrayCellMinTemp3',
-    //   'TrayCellDifTemp3',
-    //   'TrayCellAvgVolt4',
-    //   'TrayCellMaxVolt4',
-    //   'TrayCellMinVolt4',
-    //   'TrayCellDifVolt4',
-    //   'TrayCellAvgTemp4',
-    //   'TrayCellMaxTemp4',
-    //   'TrayCellMinTemp4',
-    //   'TrayCellDifTemp4',
-    //   'TrayCellAvgVolt5',
-    //   'TrayCellMaxVolt5',
-    //   'TrayCellMinVolt5',
-    //   'TrayCellDifVolt5',
-    //   'TrayCellAvgTemp5',
-    //   'TrayCellMaxTemp5',
-    //   'TrayCellMinTemp5',
-    //   'TrayCellDifTemp5',
-    //   'TrayCellAvgVolt6',
-    //   'TrayCellMaxVolt6',
-    //   'TrayCellMinVolt6',
-    //   'TrayCellDifVolt6',
-    //   'TrayCellAvgTemp6',
-    //   'TrayCellMaxTemp6',
-    //   'TrayCellMinTemp6',
-    //   'TrayCellDifTemp6',
-    //   'TrayCellAvgVolt7',
-    //   'TrayCellMaxVolt7',
-    //   'TrayCellMinVolt7',
-    //   'TrayCellDifVolt7',
-    //   'TrayCellAvgTemp7',
-    //   'TrayCellMaxTemp7',
-    //   'TrayCellMinTemp7',
-    //   'TrayCellDifTemp7',
-    //   'TrayCellAvgVolt8',
-    //   'TrayCellMaxVolt8',
-    //   'TrayCellMinVolt8',
-    //   'TrayCellDifVolt8',
-    //   'TrayCellAvgTemp8',
-    //   'TrayCellMaxTemp8',
-    //   'TrayCellMinTemp8',
-    //   'TrayCellDifTemp8',
-    //   'TrayCellAvgVolt9',
-    //   'TrayCellMaxVolt9',
-    //   'TrayCellMinVolt9',
-    //   'TrayCellDifVolt9',
-    //   'TrayCellAvgTemp9',
-    //   'TrayCellMaxTemp9',
-    //   'TrayCellMinTemp9',
-    //   'TrayCellDifTemp9',
-    // ];
+
     const selectedColumns = selectedTray ? trayColumns[selectedTray as number] : [];
 
     return (
@@ -435,7 +351,7 @@ const Home = () => {
         <thead>
           <tr>
             <th>Time</th>
-            <th>Rack Number</th>
+            <th>RackNumber</th>
             <th>Title</th>
             <th>Battery</th>
             {selectedColumns.map((col, index) => (
@@ -491,19 +407,19 @@ const Home = () => {
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleButtonClick('01')}
           >
-            Rack 1
+            Rack1
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleButtonClick('02')}
           >
-            Rack 2
+            Rack2
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleButtonClick('03')}
           >
-            Rack 3
+            Rack3
           </Button>
         </ButtonContainer>
         <ButtonContainer style={{ marginBottom: '10px' }}>
@@ -511,103 +427,85 @@ const Home = () => {
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleButtonClick('04')}
           >
-            Rack 4
+            Rack4
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleButtonClick('05')}
           >
-            Rack 5
+            Rack5
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleButtonClick('06')}
           >
-            Rack 6
+            Rack6
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleButtonClick('07')}
           >
-            Rack 7
+            Rack7
           </Button>
         </ButtonContainer>
-        {/* <div className="search-bar">
-          <label style={{ fontSize: '15px', marginRight: '25px' }}>랙 번호 : </label>
-          <Input
-            // type="text"
-            // value={rackNumberSearch}
-            style={{ width: '20%', marginBottom: '10px' }}
-            placeholder="랙 번호 검색"
-            onChange={handleRackNumberSearchChange}
-          />
-        </div> */}
+
         <h3>Tray 번호 클릭 </h3>
         <ButtonContainer>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(1)}
           >
-            Tray 1
+            Tray1
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(2)}
           >
-            Tray 2
+            Tray2
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(3)}
           >
-            Tray 3
+            Tray3
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(4)}
           >
-            Tray 4
+            Tray4
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(5)}
           >
-            Tray 5
+            Tray5
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(6)}
           >
-            Tray 6
+            Tray6
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(7)}
           >
-            Tray 7
+            Tray7
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(8)}
           >
-            Tray 8
+            Tray8
           </Button>
           <Button
             style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
             onClick={() => handleTrayButtonClick(9)}
           >
-            Tray 9
+            Tray9
           </Button>
         </ButtonContainer>
-        {/* <div className="search-bar">
-          <label style={{ fontSize: '15px' }}>Tray name : </label>
-          
-          <Input
-            style={{ width: '20%', marginBottom: '10px' }}
-            placeholder="Tray name 검색"
-            onChange={handleColumnSearchChange}
-          />
-        </div> */}
       </div>
       <div className="table-container">{renderTable()}</div>
     </Page>

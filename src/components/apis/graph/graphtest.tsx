@@ -15,10 +15,19 @@ export async function graphget(startTime: string, endTime: string, rackNumber: s
     throw new Error(`Error fetching data: ${error}`);
   }
 }
-
-export async function graphget1(startTime: string, endTime: string) {
+export async function graphget2(startTime: string, endTime: string, rackNumber: string, title: string) {
   try {
-    const response = await axios.get(`/graphtest/getdata1?startTime=${startTime}&endTime=${endTime}`);
+    const response = await axios.get(
+      `/graphtest/getdata?startTime=${startTime}&endTime=${endTime}&rackNumber=${rackNumber}&title=${title}`,
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error fetching data: ${error}`);
+  }
+}
+export async function graphget1(startTime: string, endTime: string, title: string) {
+  try {
+    const response = await axios.get(`/graphtest/getdata1?startTime=${startTime}&endTime=${endTime}&title=${title}`);
     return response.data;
   } catch (error) {
     //console.log(error);
