@@ -1,6 +1,6 @@
 // (can data RackNumber filter 후)
 import React, { useState, useEffect } from 'react';
-import { graphget2 } from '../../../components/apis/graph/graphtest';
+import { graphget3 } from '../../../components/apis/graph/graphtest';
 import styled from '@emotion/styled';
 import { Button, Input } from 'antd';
 
@@ -58,7 +58,7 @@ const Home = () => {
     const startTime = startDate.toISOString();
     const endTime = endDate.toISOString();
 
-    graphget2(startTime, endTime, rackNumberSearch, title)
+    graphget3(startTime, endTime, rackNumberSearch, title)
       .then((response) => {
         const receivedData = response;
 
@@ -231,10 +231,10 @@ const Home = () => {
             }),
           );
           setTableData(formattedData);
-          setNoDataMessage('');
+          //setNoDataMessage('');
         } else {
           setTableData([]);
-          setNoDataMessage('해당 날짜 및 검색어는 존재하지 않습니다.');
+          //setNoDataMessage('해당 날짜 및 검색어는 존재하지 않습니다.');
         }
       })
       .catch((error) => {
@@ -549,9 +549,8 @@ const Home = () => {
             Tray9
           </Button>
         </ButtonContainer>
-        {loading ? <p>잠시만 기다려 주세요...</p> : renderTable()}
+        {loading ? <p>잠시만 기다려 주세요...</p> : <div className="table-container">{renderTable()}</div>}
       </div>
-      <div className="table-container">{renderTable()}</div>
     </Page>
   );
 };

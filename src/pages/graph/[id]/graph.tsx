@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { graphget1, graphget2 } from '../../../components/apis/graph/graphtest';
+import { graphget2 } from '../../../components/apis/graph/graphtest';
 import TestGraph from '../../../components/graph/test';
 
 const Page = styled.section`
@@ -253,21 +253,23 @@ const Home = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  // useEffect(() => {
+  //   if (startDate && endDate) {
+  //     fetchData1();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [startDate, endDate, rackNumber, title]); // rackNumber 상태에 의존
   useEffect(() => {
-    if (startDate && endDate) {
-      fetchData1();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate, endDate, rackNumber, title]); // rackNumber 상태에 의존
-  useEffect(() => {
-    if (rackNumber.length == 2) {
+    if (startDate && endDate && rackNumber && title) {
       fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate, rackNumber, title]); // rackNumber 상태에 의존
 
   const fetchData = () => {
-    if (startDate && endDate && rackNumber) {
+    setLoading(true);
+    if (startDate && endDate && rackNumber && title) {
       const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
       const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
 
@@ -364,7 +366,7 @@ const Home = () => {
             const trayCellDifVolt7 = filterValidData(receivedData, 'TrayCellDifVolt7');
             const trayCellDifVolt8 = filterValidData(receivedData, 'TrayCellDifVolt8');
             const trayCellDifVolt9 = filterValidData(receivedData, 'TrayCellDifVolt9');
-
+            const batteryData = filterValidData(receivedData, 'Battery');
             setData({
               trayCellVolt1,
               trayCellVolt2,
@@ -453,36 +455,6 @@ const Home = () => {
               trayCellDifVolt8,
               trayCellDifVolt9,
             });
-          }
-        })
-        .catch((error: any) => {
-          console.error('Error fetching data:', error);
-        });
-    } else {
-      console.error('startDate와 endDate가 필요합니다.');
-    }
-  };
-  const fetchData1 = () => {
-    if (startDate && endDate && title) {
-      const startTime = new Date(startDate.getTime() + 9 * 60 * 60 * 1000);
-      const endTime = new Date(endDate.getTime() + 9 * 60 * 60 * 1000);
-
-      graphget1(startTime.toISOString(), endTime.toISOString(), title)
-        .then((response: any) => {
-          const receivedData = response;
-
-          if (receivedData && receivedData.length > 0) {
-            const filterValidData = (dataArray: any[], key: string) => {
-              return dataArray
-                .map((item) => ({
-                  x: item.time,
-                  y: isNaN(item.data[key]) ? 0 : item.data[key], // NaN 값을 0으로 대체
-                }))
-                .filter((item) => item.y !== null); // null 값을 필터링
-            };
-
-            const batteryData = filterValidData(receivedData, 'Battery');
-
             setBattery({
               batteryData,
             });
@@ -490,11 +462,15 @@ const Home = () => {
         })
         .catch((error: any) => {
           console.error('Error fetching data:', error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     } else {
       console.error('startDate와 endDate가 필요합니다.');
     }
   };
+
   const selectList = [
     { value: '', name: '' },
     { value: 'car001', name: '1호' },
@@ -547,17 +523,12 @@ const Home = () => {
           <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} showTimeSelect dateFormat="Pp" />
         </DatePickerWrapper>
       </DatePickers>
-      {(!startDate || !endDate) && <p style={{ color: 'red', fontSize: '16px' }}>날짜를 입력해주세요</p>}
-      {startDate && endDate && (
+
+      {loading ? (
+        <h2>잠시만 기다려주세요...</h2>
+      ) : (
         <>
           <TestGraph data={battery} title="배터리 데이터 그래프" />
-        </>
-      )}
-
-      {!rackNumber && <p style={{ color: 'red', fontSize: '16px' }}>Rack 번호를 입력해주세요.</p>}
-      {rackNumber && (
-        <>
-          {' '}
           <TestGraph data={data1} title="Tray Cell Temp 평균 데이터 그래프"></TestGraph>
           <TestGraph data={data} title="Tray Cell Volt 평균 데이터 그래프"></TestGraph>
           <TestGraph data={data2} title="Tray Cell Temp 최대 데이터 그래프"></TestGraph>
