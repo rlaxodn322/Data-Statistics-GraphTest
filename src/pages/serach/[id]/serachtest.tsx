@@ -151,7 +151,7 @@ const Home = () => {
                 TrayCellMaxVolt9: any;
                 TrayCellMinVolt9: any;
                 TrayCellDifVolt9: any;
-                FalutWarning: any;
+                FaultWarning: any;
                 AllRackReady: any;
               };
             }) => ({
@@ -231,7 +231,7 @@ const Home = () => {
               CellMaxVolt9: item.data.TrayCellMaxVolt9,
               CellMinVolt9: item.data.TrayCellMinVolt9,
               CellDifVolt9: item.data.TrayCellDifVolt9,
-              FalutWarning: item.data.FalutWarning,
+              FaultWarning: item.data.FaultWarning,
               AllRackReady: item.data.AllRackReady,
             }),
           );
@@ -315,7 +315,7 @@ const Home = () => {
         'CellMaxTemp1',
         'CellMinTemp1',
         'CellDifTemp1',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       2: [
@@ -327,7 +327,7 @@ const Home = () => {
         'CellMaxTemp2',
         'CellMinTemp2',
         'CellDifTemp2',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       3: [
@@ -339,7 +339,7 @@ const Home = () => {
         'CellMaxTemp3',
         'CellMinTemp3',
         'CellDifTemp3',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       4: [
@@ -351,7 +351,7 @@ const Home = () => {
         'CellMaxTemp4',
         'CellMinTemp4',
         'CellDifTemp4',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       5: [
@@ -363,7 +363,7 @@ const Home = () => {
         'CellMaxTemp5',
         'CellMinTemp5',
         'CellDifTemp5',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       6: [
@@ -375,7 +375,7 @@ const Home = () => {
         'CellMaxTemp6',
         'CellMinTemp6',
         'CellDifTemp6',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       7: [
@@ -387,7 +387,7 @@ const Home = () => {
         'CellMaxTemp7',
         'CellMinTemp7',
         'CellDifTemp7',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       8: [
@@ -399,7 +399,7 @@ const Home = () => {
         'CellMaxTemp8',
         'CellMinTemp8',
         'CellDifTemp8',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       9: [
@@ -411,7 +411,7 @@ const Home = () => {
         'CellMaxTemp9',
         'CellMinTemp9',
         'CellDifTemp9',
-        'FalutWarning',
+        'FaultWarning',
         'AllRackReady',
       ],
       // Add remaining tray mappings here
