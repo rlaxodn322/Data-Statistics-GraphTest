@@ -2,24 +2,25 @@
 import React, { useState, useEffect } from 'react';
 import { graphget3 } from '../../../components/apis/graph/graphtest';
 import styled from '@emotion/styled';
-import { Button, Input } from 'antd';
+import { Input } from 'antd';
 
 const Page = styled.section`
   text-align: center;
   margin: 0 auto;
   width: 1300px;
   font-size: 12px;
+  //
 `;
-const ButtonContainer = styled.div`
-  width: 400px;
-  margin: 0 auto;
+// const ButtonContainer = styled.div`
+//   width: 400px;
+//   margin: 0 auto;
 
-  /* margin-top: 10px; */
-  /* margin-bottom: 10px; */
-`;
-// const InputWrapper = styled.div`
-//   margin: 0 10px;
+//   /* margin-top: 10px; */
+//   /* margin-bottom: 10px; */
 // `;
+// // const InputWrapper = styled.div`
+// //   margin: 0 10px;
+// // `;
 const DropBox = styled.select`
   width: 250px;
   height: 40px;
@@ -40,10 +41,12 @@ const Home = () => {
   const [endDate, setEndDate] = useState(new Date('0000-01-02T00:00:00Z'));
   // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState<string>('');
-  const [rackNumberSearch, setRackNumberSearch] = useState('');
+  //const [rackNumberSearch, setRackNumberSearch] = useState('');
+  const [rackNumberSearch, setRackNumberSearch] = useState<string>('');
   // const [columnSearch, setColumnSearch] = useState('');
   const [noDataMessage, setNoDataMessage] = useState('');
-  const [selectedTray, setSelectedTray] = useState<number | null>(null);
+  //const [selectedTray, setSelectedTray] = useState<number | null>(null);
+  const [selectedTray, setSelectedTray] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     if (rackNumberSearch) {
@@ -149,6 +152,7 @@ const Home = () => {
                 TrayCellMinVolt9: any;
                 TrayCellDifVolt9: any;
                 FalutWarning: any;
+                AllRackReady: any;
               };
             }) => ({
               time: item.time,
@@ -228,6 +232,7 @@ const Home = () => {
               CellMinVolt9: item.data.TrayCellMinVolt9,
               CellDifVolt9: item.data.TrayCellDifVolt9,
               FalutWarning: item.data.FalutWarning,
+              AllRackReady: item.data.AllRackReady,
             }),
           );
           setTableData(formattedData);
@@ -247,13 +252,13 @@ const Home = () => {
       });
   };
 
-  const handleButtonClick = (rackNumber: string) => {
-    setRackNumberSearch(rackNumber);
-    fetchData();
-  };
-  const handleTrayButtonClick = (trayNumber: number) => {
-    setSelectedTray(trayNumber);
-  };
+  // const handleButtonClick = (rackNumber: string) => {
+  //   setRackNumberSearch(rackNumber);
+  //   fetchData();
+  // };
+  // const handleTrayButtonClick = (trayNumber: number) => {
+  //   setSelectedTray(trayNumber);
+  // };
 
   const handleDateChange = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
@@ -264,10 +269,32 @@ const Home = () => {
     }
   };
   const selectList = [
-    { value: '', name: '' },
+    { value: '', name: 'Car 번호를 눌러주세요.' },
     { value: 'car001', name: '1호' },
     { value: 'car002', name: '2호' },
     { value: 'car003', name: '3호' },
+  ];
+  const selectList1 = [
+    { value: '', name: 'Rack 번호를 눌러주세요.' },
+    { value: '01', name: 'Rack1' },
+    { value: '02', name: 'Rack2' },
+    { value: '03', name: 'Rack3' },
+    { value: '04', name: 'Rack4' },
+    { value: '05', name: 'Rack5' },
+    { value: '06', name: 'Rack6' },
+    { value: '07', name: 'Rack7' },
+  ];
+  const selectList2 = [
+    { value: '', name: 'Tray 번호를 눌러주세요.' },
+    { value: '1', name: 'Tray1' },
+    { value: '2', name: 'Tray2' },
+    { value: '3', name: 'Tray3' },
+    { value: '4', name: 'Tray4' },
+    { value: '5', name: 'Tray5' },
+    { value: '6', name: 'Tray6' },
+    { value: '7', name: 'Tray7' },
+    { value: '8', name: 'Tray8' },
+    { value: '9', name: 'Tray9' },
   ];
   const renderTable = () => {
     const filteredData = tableData.filter((data) => {
@@ -289,6 +316,7 @@ const Home = () => {
         'CellMinTemp1',
         'CellDifTemp1',
         'FalutWarning',
+        'AllRackReady',
       ],
       2: [
         'CellAvgVolt2',
@@ -300,6 +328,7 @@ const Home = () => {
         'CellMinTemp2',
         'CellDifTemp2',
         'FalutWarning',
+        'AllRackReady',
       ],
       3: [
         'CellAvgVolt3',
@@ -311,6 +340,7 @@ const Home = () => {
         'CellMinTemp3',
         'CellDifTemp3',
         'FalutWarning',
+        'AllRackReady',
       ],
       4: [
         'CellAvgVolt4',
@@ -322,6 +352,7 @@ const Home = () => {
         'CellMinTemp4',
         'CellDifTemp4',
         'FalutWarning',
+        'AllRackReady',
       ],
       5: [
         'CellAvgVolt5',
@@ -333,6 +364,7 @@ const Home = () => {
         'CellMinTemp5',
         'CellDifTemp5',
         'FalutWarning',
+        'AllRackReady',
       ],
       6: [
         'CellAvgVolt6',
@@ -344,6 +376,7 @@ const Home = () => {
         'CellMinTemp6',
         'CellDifTemp6',
         'FalutWarning',
+        'AllRackReady',
       ],
       7: [
         'CellAvgVolt7',
@@ -355,6 +388,7 @@ const Home = () => {
         'CellMinTemp7',
         'CellDifTemp7',
         'FalutWarning',
+        'AllRackReady',
       ],
       8: [
         'CellAvgVolt8',
@@ -366,6 +400,7 @@ const Home = () => {
         'CellMinTemp8',
         'CellDifTemp8',
         'FalutWarning',
+        'AllRackReady',
       ],
       9: [
         'CellAvgVolt9',
@@ -377,11 +412,12 @@ const Home = () => {
         'CellMinTemp9',
         'CellDifTemp9',
         'FalutWarning',
+        'AllRackReady',
       ],
       // Add remaining tray mappings here
     };
 
-    const selectedColumns = selectedTray ? trayColumns[selectedTray as number] : [];
+    const selectedColumns = selectedTray ? trayColumns[selectedTray as unknown as number] : [];
 
     return (
       <table style={{ borderCollapse: 'collapse', margin: '0 auto' }}>
@@ -416,14 +452,6 @@ const Home = () => {
   return (
     <Page>
       <div style={{ marginTop: '20px' }} className="container">
-        <label>CarNumber: </label>
-        <DropBox value={title} onChange={(e) => setTitle(e.target.value)}>
-          {selectList.map((item) => (
-            <option value={item.value} key={item.value}>
-              {item.name}
-            </option>
-          ))}
-        </DropBox>
         <div className="date-picker">
           <label style={{ fontSize: '15px', marginRight: '10px' }}>시작 날짜 : </label>
           <Input
@@ -444,10 +472,37 @@ const Home = () => {
             onChange={handleDateChange}
           />
         </div>
-        <h3>Rack 번호 클릭 </h3>
-        <ButtonContainer>
+
+        <label>CarNumber: </label>
+        <DropBox value={title} onChange={(e) => setTitle(e.target.value)}>
+          {selectList.map((item) => (
+            <option value={item.value} key={item.value}>
+              {item.name}
+            </option>
+          ))}
+        </DropBox>
+
+        <label>RackNumber: </label>
+        <DropBox value={rackNumberSearch} onChange={(e) => setRackNumberSearch(e.target.value)}>
+          {selectList1.map((item) => (
+            <option value={item.value} key={item.value}>
+              {item.name}
+            </option>
+          ))}
+        </DropBox>
+
+        <label>TrayNumber: </label>
+        <DropBox value={selectedTray} onChange={(e) => setSelectedTray(e.target.value)}>
+          {selectList2.map((item) => (
+            <option value={item.value} key={item.value}>
+              {item.name}
+            </option>
+          ))}
+        </DropBox>
+        {/* <h3>Rack 번호 클릭 </h3> */}
+        {/* <ButtonContainer>
           <Button
-            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px' }}
+            style={{ width: '60px', height: '60px', marginRight: '10px', marginBottom: '10px', color: 'gray' }}
             onClick={() => handleButtonClick('01')}
           >
             Rack1
@@ -548,8 +603,8 @@ const Home = () => {
           >
             Tray9
           </Button>
-        </ButtonContainer>
-        {loading ? <p>잠시만 기다려 주세요...</p> : <div className="table-container">{renderTable()}</div>}
+        </ButtonContainer> */}
+        {loading ? <h2>잠시만 기다려 주세요...</h2> : <div className="table-container">{renderTable()}</div>}
       </div>
     </Page>
   );

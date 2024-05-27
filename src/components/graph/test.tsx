@@ -1,6 +1,6 @@
 import React from 'react';
-import { Line } from '@nivo/line';
-
+// import { Line } from '@nivo/line';
+import dynamic from 'next/dynamic';
 interface GraphDataItem {
   x: string; // 혹은 Date, 데이터의 형식에 따라
   y: number;
@@ -10,7 +10,7 @@ interface GraphProps {
   data: { [key: string]: GraphDataItem[] };
   title: string;
 }
-
+const ResponsiveLine = dynamic(() => import('@nivo/line').then((m) => m.ResponsiveLine), { ssr: false });
 const Graph: React.FC<GraphProps> = ({ data, title }) => {
   const formattedData = Object.keys(data).map((key) => ({ id: key, data: data[key] }));
   const isEmptyData = Object.values(data).every((item) => item.length === 0);
@@ -20,11 +20,11 @@ const Graph: React.FC<GraphProps> = ({ data, title }) => {
     return null;
   }
   return (
-    <div>
+    <div style={{ width: '800px', height: '400px', margin: '0 auto' }}>
       <h2>{title}</h2>
-      <Line
-        width={1200}
-        height={400}
+      <ResponsiveLine
+        // width={1200}
+        // height={400}
         data={formattedData}
         xScale={{
           type: 'time',
@@ -36,7 +36,7 @@ const Graph: React.FC<GraphProps> = ({ data, title }) => {
         yScale={{ type: 'linear', min: 'auto', max: 'auto' }}
         axisBottom={{
           format: '%b %d, %H:%M',
-          tickValues: 'every 1 hour',
+          //tickValues: 'every 12 hour',
         }}
         axisLeft={{
           tickSize: 5,
@@ -50,23 +50,23 @@ const Graph: React.FC<GraphProps> = ({ data, title }) => {
         enableCrosshair={false}
         useMesh={true}
         colors={{ scheme: 'category10' }}
-        legends={[
-          {
-            anchor: 'top-right',
-            direction: 'column',
-            justify: false,
-            translateX: 80,
-            translateY: 0,
-            itemsSpacing: 0,
-            itemDirection: 'left-to-right',
-            itemWidth: 80,
-            itemHeight: 20,
-            itemOpacity: 0.75,
-            symbolSize: 12,
-            symbolShape: 'circle',
-            symbolBorderColor: 'rgba(0, 0, 0, .5)',
-          },
-        ]}
+        // legends={[
+        //   {
+        //     anchor: 'top-right',
+        //     direction: 'column',
+        //     justify: false,
+        //     translateX: 80,
+        //     translateY: 0,
+        //     itemsSpacing: 0,
+        //     itemDirection: 'left-to-right',
+        //     itemWidth: 80,
+        //     itemHeight: 20,
+        //     itemOpacity: 0.75,
+        //     symbolSize: 12,
+        //     symbolShape: 'circle',
+        //     symbolBorderColor: 'rgba(0, 0, 0, .5)',
+        //   },
+        // ]}
       />
     </div>
   );

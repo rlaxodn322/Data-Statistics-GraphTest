@@ -15,23 +15,23 @@ const Page = styled.section`
   font-size: 12px;
 `;
 
-const DatePickers = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  margin-top: 30px;
-`;
+// const DatePickers = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   margin-bottom: 20px;
+//   margin-top: 30px;
+// `;
 
-const DatePickerWrapper = styled.div`
-  margin: 0 10px;
-`;
-// const InputWrapper = styled.div`
+// const DatePickerWrapper = styled.div`
 //   margin: 0 10px;
 // `;
+// // const InputWrapper = styled.div`
+// //   margin: 0 10px;
+// // `;
 const DropBox = styled.select`
-  width: 100px;
-  height: 20px;
-  border: solid 1px rgb(250, 250, 250);
+  width: 210px;
+  height: 40px;
+  border: solid 1px lightgray;
   border-radius: 8px;
   margin-left: 10px;
   cursor: pointer;
@@ -45,7 +45,45 @@ interface GraphDataItem {
   x: string;
   y: number;
 }
+const DatePickers = styled.div`
+  display: flex;
+  justify-content: center;
 
+  margin-top: 30px;
+  margin-bottom: 30px;
+`;
+
+const DatePickerWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  label {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+
+  .react-datepicker__input-container {
+    width: 100%;
+  }
+
+  input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+
+  .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
+    width: 100px;
+  }
+`;
 interface GraphData {
   trayCellVolt1: GraphDataItem[];
   trayCellVolt2: GraphDataItem[];
@@ -148,6 +186,10 @@ interface GraphData8 {
   batteryData: GraphDataItem[];
   [key: string]: GraphDataItem[]; // 인덱스 시그니처 추가
 }
+interface GraphData9 {
+  pratemp: GraphDataItem[];
+  [key: string]: GraphDataItem[]; // 인덱스 시그니처 추가
+}
 
 const Home = () => {
   const [data, setData] = useState<GraphData>({
@@ -240,6 +282,9 @@ const Home = () => {
   });
   const [battery, setBattery] = useState<GraphData8>({
     batteryData: [],
+  });
+  const [pra, setPRA] = useState<GraphData9>({
+    pratemp: [],
   });
 
   const [rackNumber, setRackNumber] = useState<string>(''); // RackNumber 상태 추가
@@ -367,6 +412,8 @@ const Home = () => {
             const trayCellDifVolt8 = filterValidData(receivedData, 'TrayCellDifVolt8');
             const trayCellDifVolt9 = filterValidData(receivedData, 'TrayCellDifVolt9');
             const batteryData = filterValidData(receivedData, 'Battery');
+            const pratemp = filterValidData(receivedData, 'PRATemp');
+
             setData({
               trayCellVolt1,
               trayCellVolt2,
@@ -455,8 +502,12 @@ const Home = () => {
               trayCellDifVolt8,
               trayCellDifVolt9,
             });
+
             setBattery({
               batteryData,
+            });
+            setPRA({
+              pratemp,
             });
           }
         })
@@ -472,13 +523,13 @@ const Home = () => {
   };
 
   const selectList = [
-    { value: '', name: '' },
+    { value: '', name: 'Car 번호를 입력해주세요.' },
     { value: 'car001', name: '1호' },
     { value: 'car002', name: '2호' },
     { value: 'car003', name: '3호' },
   ];
   const selectList1 = [
-    { value: '', name: '' },
+    { value: '', name: 'Rack 번호를 입력해주세요.' },
     { value: '01', name: '1번랙' },
     { value: '02', name: '2번랙' },
     { value: '03', name: '3번랙' },
@@ -492,23 +543,6 @@ const Home = () => {
   return (
     <Page>
       <DatePickers>
-        <label>CarNumber: </label>
-        <DropBox value={title} onChange={(e) => setTitle(e.target.value)}>
-          {selectList.map((item) => (
-            <option value={item.value} key={item.value}>
-              {item.name}
-            </option>
-          ))}
-        </DropBox>
-        <label style={{ marginLeft: '10px' }}>RackNumber: </label>
-        <DropBox value={rackNumber} onChange={(e) => setRackNumber(e.target.value)}>
-          {selectList1.map((item) => (
-            <option value={item.value} key={item.value}>
-              {item.name}
-            </option>
-          ))}
-        </DropBox>
-
         <DatePickerWrapper>
           <label>Start Date: </label>
           <DatePicker
@@ -523,12 +557,28 @@ const Home = () => {
           <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} showTimeSelect dateFormat="Pp" />
         </DatePickerWrapper>
       </DatePickers>
-
+      <label>CarNumber: </label>
+      <DropBox value={title} onChange={(e) => setTitle(e.target.value)}>
+        {selectList.map((item) => (
+          <option value={item.value} key={item.value}>
+            {item.name}
+          </option>
+        ))}
+      </DropBox>
+      <label style={{ marginLeft: '10px' }}>RackNumber: </label>
+      <DropBox value={rackNumber} onChange={(e) => setRackNumber(e.target.value)}>
+        {selectList1.map((item) => (
+          <option value={item.value} key={item.value}>
+            {item.name}
+          </option>
+        ))}
+      </DropBox>
       {loading ? (
         <h2>잠시만 기다려주세요...</h2>
       ) : (
         <>
           <TestGraph data={battery} title="배터리 데이터 그래프" />
+          <TestGraph data={pra} title="PRA 방전 Temp 그래프" />
           <TestGraph data={data1} title="Tray Cell Temp 평균 데이터 그래프"></TestGraph>
           <TestGraph data={data} title="Tray Cell Volt 평균 데이터 그래프"></TestGraph>
           <TestGraph data={data2} title="Tray Cell Temp 최대 데이터 그래프"></TestGraph>
